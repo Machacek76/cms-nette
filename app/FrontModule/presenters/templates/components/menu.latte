@@ -1,0 +1,79 @@
+{block}
+{var $debug = isset($root['system']['request']['css']) ? 'debug' : '' }
+<div ng-switch-when="0">
+    <div class='inf-item  {$debug}'>
+        <h2>{{ itm.feed.name | removeHtmlEntities  }}</h2>
+        <span>{{ itm.feed.date | removeHtmlEntities  }}</span>
+    </div>
+    <div class='inf-item {$debug}'>
+        <h2>{{ itm.feed.soup.name | removeHtmlEntities  }}</h2>
+        <span>{{ itm.feed.soup.menu | removeHtmlEntities  }}</span>
+    </div>
+    <div class='inf-item {$debug}'>
+        <h2>{{ itm.feed.meal1.name | removeHtmlEntities  }}</h2>
+        <span>{{ itm.feed.meal1.menu | removeHtmlEntities  }}</span>
+    </div>
+    <div class='inf-item {$debug}'>
+        <h2>{{ itm.feed.meal2.name | removeHtmlEntities  }}</h2>
+        <span>{{ itm.feed.meal2.menu | removeHtmlEntities  }}</span>
+    </div>
+    <div class='inf-item {$debug}'>
+        <h2>{{ itm.feed.dinner.name | removeHtmlEntities  }}</h2>
+        <span>{{ itm.feed.dinner.menu | removeHtmlEntities }}</span>
+    </div>
+</div>
+
+{************************************************************}
+<div ng-switch-when="1">
+
+    <div class='inf-item {$debug}'>
+        <h2>{{ itm.feed.name | removeHtmlEntities  }}</h2>
+        <span>{{ itm.feed.date | removeHtmlEntities  }}</span>
+    </div>
+    <div class='inf-item {$debug}'>
+        <h2>{{ itm.feed.dinner.name | removeHtmlEntities  }}</h2>
+        <span>{{ itm.feed.dinner.menu | removeHtmlEntities }}</span>
+    </div>
+    <div class='inf-item {$debug}'>
+        <h2>{{ itm.feed.nameTomorrow | removeHtmlEntities  }}</h2>
+        <span>{{ itm.feed.dateTomorrov | removeHtmlEntities  }}</span>
+    </div>
+    <div class='inf-item {$debug}'>
+        <h2>{{ itm.feed.soup.name | removeHtmlEntities  }}</h2>
+        <span>{{ itm.feed.soup.menu | removeHtmlEntities  }}</span>
+    </div>
+    <div class='inf-item {$debug}'>
+        <h2>{{ itm.feed.meal1.name | removeHtmlEntities  }}</h2>
+        <span>{{ itm.feed.meal1.menu | removeHtmlEntities  }}</span>
+    </div>
+    <div class='inf-item {$debug}'>
+        <h2>{{ itm.feed.meal2.name | removeHtmlEntities  }}</h2>
+        <span>{{ itm.feed.meal2.menu | removeHtmlEntities  }}</span>
+    </div>
+</div>
+
+{************************************************************}
+<div ng-switch-when="2">
+    <div class='inf-item {$debug}'>
+        <h2>{{ itm.feed.name | removeHtmlEntities  }}</h2>
+        <span>{{ itm.feed.date | removeHtmlEntities  }}</span>
+    </div>
+    <div class='inf-item {$debug}'>
+        <h2>{{ itm.feed.soup.name | removeHtmlEntities  }}</h2>
+        <span>{{ itm.feed.soup.menu }}</span>
+    </div>
+    <div class='inf-item {$debug}'>
+        <h2>{{ itm.feed.meal1.name | removeHtmlEntities  }}</h2>
+        <span>{{ itm.feed.meal1.menu | removeHtmlEntities  }}</span>
+    </div>
+    <div class='inf-item {$debug}'>
+        <h2>{{ itm.feed.meal2.name | removeHtmlEntities  }}</h2>
+        <span>{{ itm.feed.meal2.menu | removeHtmlEntities  }}</span>
+    </div>
+    <div class='inf-item {$debug}'>
+        <h2>{{ itm.feed.dinner.name | removeHtmlEntities  }}</h2>
+        <span>{{ itm.feed.dinner.menu | removeHtmlEntities  }}</span>
+    </div>
+</div>
+
+{/block}

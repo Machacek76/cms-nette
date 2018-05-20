@@ -30,25 +30,25 @@ vendor/*
 .vscode/*
 
 
-httpdocs/media/config.ini
+www/media/config.ini
 
-httpdocs/media/temp/*
+www/media/temp/*
 
-!httpdocs/media/temp/.keep
+!www/media/temp/.keep
 
-httpdocs/media/files/*
+www/media/files/*
 
-!httpdocs/media/files/.keep
+!www/media/files/.keep
 
-httpdocs/img-cuts/*
+www/img-cuts/*
 
-!httpdocs/img-cuts/.keep
+!www/img-cuts/.keep
 
 
 
-httpdocs/media/files/*
+www/media/files/*
 
-!httpdocs/media/files/.keep
+!www/media/files/.keep
 
 
 app/config/config.local.neon

@@ -2,7 +2,31 @@
 # WARNING: it is CRITICAL that this file & directory are NOT accessible directly via a web browser!
 # https://nette.org/security-warning
 #
+
+
+
 parameters:
+	mailer:
+		host:		'smtp.gmail.com'
+		username:	'cms.jsvyvoj@gmail.com'
+		password:	'CMS-jsvyvoj-657'
+		port:		'465'
+		secure:     'ssl'
+
+	paginator:
+		itemPerPage: 60
+
+	imageTemp:		'img'
+	imgCuts:		'/img-cuts/'
+	mediaDir:		'/media'
+
+	glCache:
+		time: '5 minutes'
+		name: 'glCache'
+		tempDir: %appDir%/../temp/
+
+
+
 
 
 application:
@@ -13,17 +37,13 @@ application:
 
 session:
 	expiration: 14 days
+	savePath: %appDir%/../temp/sessions
 
-
-database:
-	dsn: 'mysql:host=127.0.0.1;dbname=test'
-	user:
-	password:
-	options:
-		lazy: yes
 
 
 services:
+	glCache: \GlueWork\glCache\glCacheExtension
+
 	- App\Model\UserManager
 	- App\Forms\FormFactory
 	- App\Forms\SignInFormFactory
