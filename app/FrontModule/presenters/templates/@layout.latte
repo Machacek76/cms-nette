@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		{include './components/head.latte'}
+		{block head}{/block}
+	</head>
+	<body ng-app="app">
+		{include content}
+
+		{include './components/foot.latte'}
+		{ifset scripts}{include scripts}{/ifset}
+	</body>
+</html>
+{dump $root}

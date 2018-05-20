@@ -1,0 +1,8 @@
+
+# NEON for extensions settings
+
+
+extensions:
+	translation: Kdyby\Translation\DI\TranslationExtension
+	vp: IPub\VisualPaginator\DI\VisualPaginatorExtension
+	glCache: \GlueWork\glCache\glCacheExtension
