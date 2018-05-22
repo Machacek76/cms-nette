@@ -1,0 +1,62 @@
+
+{block content}
+
+{* Left side column. contains the sidebar *}
+<aside class="main-sidebar">
+    <section class="sidebar">
+        {* Sidebar user panel *}
+        <div class="user-panel">
+            <div class="pull-left image">
+                <img src="{$root['user']['avatar']}" class="img-circle" alt="User Image">
+            </div>
+            <div class="pull-left info">
+                <p>{$root['user']['name']}</p>
+                <a href="#"><i class="fa fa-circle text-success"></i> {$root['user']['role']}</a>
+            </div>
+        </div>
+        <ul class="sidebar-menu tree" data-widget="tree">
+            {*--START sidebar menus --*}
+
+
+            {*--TEMPLATES menu item--*}
+            <li class="treeview">
+				<a href="#">
+					<i class="fa fa-share"></i>
+					<span>Multilevel 1</span>
+					<span class="pull-right-container">
+					<i class="fa fa-angle-left pull-right"></i>
+					</span>
+				</a>
+				<ul class="treeview-menu">
+					<li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li>
+					<li class="treeview">
+					<a href="#"><i class="fa fa-circle-o"></i> Level One
+						<span class="pull-right-container">
+						<i class="fa fa-angle-left pull-right"></i>
+						</span>
+					</a>
+					<ul class="treeview-menu">
+						<li><a href="#"><i class="fa fa-circle-o"></i> Level Two</a></li>
+						<li class="treeview">
+						<a href="#"><i class="fa fa-circle-o"></i> Level Two
+							<span class="pull-right-container">
+							<i class="fa fa-angle-left pull-right"></i>
+							</span>
+						</a>
+						<ul class="treeview-menu">
+							<li><a href="#"><i class="fa fa-circle-o"></i> Level Three</a></li>
+							<li><a href="#"><i class="fa fa-circle-o"></i> Level Three</a></li>
+						</ul>
+						</li>
+					</ul>
+					</li>
+					<li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li>
+				</ul>
+            </li>
+            {*--END sidebar menus--*}
+        </ul>
+    </section>
+    {* /.sidebar *}
+</aside>
+
+{/block}

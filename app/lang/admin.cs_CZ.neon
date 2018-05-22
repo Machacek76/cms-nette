@@ -1,0 +1,22 @@
+
+# general laout
+
+layout:
+    brandName:          "CMS nette"
+    brandNameAlt:       "CMS"
+    logout:             "Odhlásit"
+
+
+# sign in
+
+sigIn:
+    keepSigned:         "Pamatovat přihlášení"
+    forgotPassword:     "Zapomenuté heslo"
+    login:              "Přihlásit"
+    user:               "Přihlašovací jméno"
+    password:           "Heslo"
+
+
+
+
+

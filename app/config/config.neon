@@ -44,8 +44,14 @@ session:
 services:
 	glCache: \GlueWork\glCache\glCacheExtension
 
-	- App\Model\UserManager
-	- App\Forms\FormFactory
-	- App\Forms\SignInFormFactory
-	- App\Forms\SignUpFormFactory
 	router: App\RouterFactory::createRouter
+
+	#
+	# MODELS
+	#
+	checkTables: App\Model\CheckTables
+	userModel: App\Model\UserManager
+
+
+
+

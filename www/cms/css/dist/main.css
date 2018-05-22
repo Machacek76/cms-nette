@@ -1,4 +1,111 @@
 /**
-test
+
+
 
 */
+/**********************************************************************************
+    CORE
+**********************************************************************************/
+.bg-dark-base {
+  background-color: #1a1a1a;
+}
+
+.bg-dark-darker {
+  background-color: #404040;
+}
+
+.bg-dark-dark {
+  background-color: #666666;
+}
+
+.bg-dark {
+  background-color: #8c8c8c;
+}
+
+.bg-dark-light {
+  background-color: #999999;
+}
+
+.bg-dark-lighter {
+  background-color: #bfbfbf;
+}
+
+.bg-light-base {
+  background-color: #e6e6e6;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+  align-items: center;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  background-color: #e6e6e6;
+}
+
+.site-wrapper {
+  width: 100%;
+}
+
+/**********************************************************************************
+    COMPONENTS
+**********************************************************************************/
+.form-signin {
+  width: 100%;
+  max-width: 330px;
+  padding: 15px;
+  margin: auto;
+  background: #ffffff;
+}
+.form-signin .checkbox {
+  font-weight: 400;
+}
+.form-signin .form-control {
+  position: relative;
+  box-sizing: border-box;
+  height: auto;
+  padding: 10px;
+  font-size: 16px;
+}
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+.form-signin input[type=email] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-signin input[type=password] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+/* 
+    Created on : 18.9.2016, 22:27:06
+    Author     : Milan Machacek <machacek76@gmail.com>
+*/
+.langswitch {
+  position: relative;
+  background: transparent;
+  margin-top: 0;
+  margin-bottom: 0;
+  font-size: 16px;
+  padding: 7px 5px;
+  list-style: none;
+}
+.langswitch li {
+  display: inline-block;
+  margin-right: 5px;
+}
+.langswitch li a {
+  color: #666666;
+  text-decoration: none;
+  display: inline-block;
+}
