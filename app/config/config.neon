@@ -46,12 +46,20 @@ services:
 
 	router: App\RouterFactory::createRouter
 
+	- App\Security\AuthorizatorFactory
+	Authorizator:
+		class: Nette\Security\Permission
+		factory: @App\Security\AuthorizatorFactory::create
+
 	#
 	# MODELS
 	#
+	
 	checkTables: App\Model\CheckTables
-	userModel: App\Model\UserManager
-
-
+	
+	
+	userManager: App\Model\UserManager
+	userModel:	App\Model\UserModel
+	userMetaModel:	App\Model\UserMetaModel
 
 

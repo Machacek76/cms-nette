@@ -11,12 +11,19 @@ layout:
 
 sigIn:
     keepSigned:         "Pamatovat přihlášení"
+    errorLogin:         "Zadali jste špatné jméno nebo heslo!"
     forgotPassword:     "Zapomenuté heslo"
     login:              "Přihlásit"
     user:               "Přihlašovací jméno"
     password:           "Heslo"
-
-
+    logOut:             "Byli jste odhlášeni."
+    inccorrectName:     "Zadali jste špatné jméno!"
+    inccorrectPassword: "Zadali jste špatné heslo!"
+    enterPassword:      "Zadejte svoje heslo"
+    enterUsername:      "Zadejte přihlašovací jméno"
+    maxCountFailLogin:  "Příliš mnoho neuspěšných přihlášení skuste to za hodinu!"
+    blockAccount:       "Účet je zablokovaný!"
+    toggleNavigation:   "Přepnutí navigace."
 
 
 

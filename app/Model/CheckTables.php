@@ -38,7 +38,7 @@ class CheckTables  extends BaseModel {
 		}
 		
 		if (in_array('user_role', $arr) === FALSE){
-			$this->createUserMeta();
+			$this->createUserRole();
 		}
 		
 		if (in_array('media', $arr) === FALSE){
@@ -84,18 +84,20 @@ class CheckTables  extends BaseModel {
 
 
 	private function createUserRole () {
-		$this->database->query('
+		$this->database->query("
 			DROP TABLE IF EXISTS `user_role`;
 			CREATE TABLE `user_role` (
 			`id` int(11) NOT NULL AUTO_INCREMENT,
 			`id_user` int(5) unsigned NOT NULL,
 			`role` varchar(25) COLLATE utf8_czech_ci NOT NULL,
-			`active` tinyint(1) NOT NULL,
 			PRIMARY KEY (`id`),
 			KEY `id_user` (`id_user`),
 			CONSTRAINT `user_role_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `users` (`id`)
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
-		');
+			INSERT INTO `user_role` (`id`, `id_user`, `role`) VALUES
+			(1,	1,	'admin'),
+			(2,	2,	'user');
+		");
 	}
 	
 	private function createMedia(){

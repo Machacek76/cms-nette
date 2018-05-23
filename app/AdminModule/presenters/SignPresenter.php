@@ -31,6 +31,12 @@ class SignPresenter extends BasePresenter{
 
 
 
+	public function renderIn (){
+		//$this->flashMessage('Danger', 'danger');
+	}
+
+
+
 	/**
 	 * Sign-in form factory.
 	 * @return Form

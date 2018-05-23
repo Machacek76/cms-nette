@@ -10,9 +10,22 @@ class UserModel extends BaseModel{
     /** @var tableName */
     public $tableName = 'users';
 
+	/**
+	 * get user coll 
+	 *
+	 * @param array $find
+	 * @param string $coll
+	 * @return void
+	 */
+	public function getUser (array $find){
+		$res = $this->findOneBy($find);
+		return $res;
+	}
+	
+	
 
 
-    
+
 	/**
 	 *  Gravatar link
 	 * @string

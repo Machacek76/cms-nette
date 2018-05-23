@@ -13,15 +13,23 @@
 	padding: 7px 5px;
 	list-style: none; 
 
-	 li {
-		display: inline-block;
-		margin-right: 5px; 
-		
-		a {
-			color: $dark-dark;
-			text-decoration: none;
-			display: inline-block; 
-		}
+	ul {
+		list-style-type: none;
+		margin: 0;
+		padding: 0;
+		overflow: hidden;
 	}
+	
+	li {
+		float: left;
+	}
+	
+	li a {
+		display: block;
+		text-align: center;
+		padding: 14px 16px;
+		text-decoration: none;
+	}
+
 }
 		

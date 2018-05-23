@@ -21,11 +21,31 @@ class SignInFormFactory
 	/** @var translator */
 	private $translator;
 
+	/** @var \App\Model\UserModel */
+	private $userModel;
 
-	public function __construct(FormFactory $factory, User $user, \Nette\Localization\ITranslator $translator){
-		$this->factory 		= $factory;
-		$this->user 		= $user;
-		$this->translator	= $translator;
+
+	/** @var \App\Model\UserMetaModel */
+	private $userMetaModel;
+
+	/** @var  \GlueWork\glCache\glCacheExtension  */
+	private $glCache;
+
+	public function __construct(FormFactory $factory, 
+								User $user,
+								 \Nette\Localization\ITranslator $translator, 
+								 \App\Model\UserModel $userModel, 
+								 \App\Model\UserModel $userMetaModel,
+								 \GlueWork\glCache\glCacheExtension  $glCache
+								 ){
+		$this->factory 			= $factory;
+		$this->user 			= $user;
+		$this->translator		= $translator;
+		$this->userModel 		= $userModel;
+		$this->userMetaModel	= $userMetaModel;
+		$this->glCache			= $glCache;
+		/* vyresit cachovani  */
+		$this->glCache->initCache(['tempDir'=>__DIR__ . "/../../temp/_glcache", 'name'=>'glCache']);
 	}
 
 
@@ -46,13 +66,41 @@ class SignInFormFactory
 		$form->addSubmit('send', $this->translator->translate('admin.sigIn.login'));
 
 		$form->onSuccess[] = function (Form $form, $values) use ($onSuccess) {
+
+			/**
+			 * check is user exist
+			 */
+			$glc = 0; // count fail login for last hour
+			$user = $this->userModel->getUser(['username'=>$values->username], ['id','status']);
+			if(!$user){
+				$form->addError( $this->translator->translate('admin.sigIn.inccorrectName') );
+				return;
+			}else if ($user->status === 0){
+				$form->addError( $this->translator->translate('admin.sigIn.blockAccount') );
+				return;
+			}else{ // check count fail login;
+				$this->glCache->nocache	= false;		
+				$glc = $this->glCache->loadCache('fail-login-userId-' . $user->id);
+				$glc = !$glc ? 0 : $glc;
+				$glc++;
+				if($glc > 3 ) {
+					$form->addError( $this->translator->translate('admin.sigIn.maxCountFailLogin') );
+					return;
+				}	
+			}
+
+
 			try {
 				$this->user->setExpiration($values->remember ? '14 days' : '20 minutes');
 				$this->user->login($values->username, $values->password);
+				$this->glCache->saveCache( 'fail-login-userId-' . $user->id, 0, '60 minutes');
+
 			} catch (Nette\Security\AuthenticationException $e) {
-				$form->addError($this->translator->translate('admin.sigIn.errorLogin') );
+				$this->glCache->saveCache( 'fail-login-userId-' . $user->id, $glc, '60 minutes');
+				$form->addError( $this->translator->translate('admin.sigIn.inccorrectPassword') );
 				return;
 			}
+
 			$onSuccess();
 		};
 

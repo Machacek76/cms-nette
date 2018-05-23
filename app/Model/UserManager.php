@@ -18,17 +18,19 @@ class UserManager implements Nette\Security\IAuthenticator
 		COLUMN_ID = 'id',
 		COLUMN_NAME = 'username',
 		COLUMN_PASSWORD_HASH = 'password',
-		COLUMN_EMAIL = 'email',
-		COLUMN_ROLE = 'role';
+		COLUMN_EMAIL = 'email';
 
 
 	/** @var Nette\Database\Context */
 	private $database;
 
+	/** @var \Nette\Localization\ITranslator $translator */
+	private $translator;
 
-	public function __construct(Nette\Database\Context $database)
-	{
+
+	public function __construct(Nette\Database\Context $database, \Nette\Localization\ITranslator $translator){
 		$this->database = $database;
+		$this->translator = $translator;
 	}
 
 
@@ -45,11 +47,13 @@ class UserManager implements Nette\Security\IAuthenticator
 			->where(self::COLUMN_NAME, $username)
 			->fetch();
 
+
+
 		if (!$row) {
-			throw new Nette\Security\AuthenticationException('The username is incorrect.', self::IDENTITY_NOT_FOUND);
+			throw new Nette\Security\AuthenticationException($this->translator->translate('admin.sigIn.inccorrectName'), self::IDENTITY_NOT_FOUND);
 
 		} elseif (!Passwords::verify($password, $row[self::COLUMN_PASSWORD_HASH])) {
-			throw new Nette\Security\AuthenticationException('The password is incorrect.', self::INVALID_CREDENTIAL);
+			throw new Nette\Security\AuthenticationException($this->translator->translate('admin.sigIn.inccorrectPassword'), self::INVALID_CREDENTIAL);
 
 		} elseif (Passwords::needsRehash($row[self::COLUMN_PASSWORD_HASH])) {
 			$row->update([
@@ -59,7 +63,9 @@ class UserManager implements Nette\Security\IAuthenticator
 
 		$arr = $row->toArray();
 		unset($arr[self::COLUMN_PASSWORD_HASH]);
-		return new Nette\Security\Identity($row[self::COLUMN_ID], $row[self::COLUMN_ROLE], $arr);
+		$role_arr = ['admin'];
+
+		return new Nette\Security\Identity($row[self::COLUMN_ID], $role_arr, $arr);
 	}
 
 

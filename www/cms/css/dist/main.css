@@ -58,10 +58,11 @@ body {
 **********************************************************************************/
 .form-signin {
   width: 100%;
-  max-width: 330px;
+  max-width: 420px;
   padding: 15px;
   margin: auto;
   background: #ffffff;
+  text-align: left;
 }
 .form-signin .checkbox {
   font-weight: 400;
@@ -100,12 +101,18 @@ body {
   padding: 7px 5px;
   list-style: none;
 }
+.langswitch ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
 .langswitch li {
-  display: inline-block;
-  margin-right: 5px;
+  float: left;
 }
 .langswitch li a {
-  color: #666666;
+  display: block;
+  text-align: center;
+  padding: 14px 16px;
   text-decoration: none;
-  display: inline-block;
 }

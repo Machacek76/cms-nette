@@ -13,8 +13,12 @@ use App\Components\Mailer;
  class BasePresenter extends \App\Presenters\BasePresenter{
         
     
-    /** var @root */
-    public $root;
+    /** @var $root */
+	public $root;
+	
+	/** @var $resource */
+	public $resource;
+
 
 
 	public function startup() {
@@ -26,33 +30,41 @@ use App\Components\Mailer;
 		$this->glCache->initCache($this->context->parameters['glCache']);
 		$this->glCache->nocache = true;
 		
+
+		if ($this->user->isLoggedIn()) {
+			$user['email']				= $this->user->getIdentity()->data['email']; 
+			$user['id']					= $this->user->getIdentity()->data['id']; 
+			$user['role']				= ''; 
+			$user['name']				= $this->user->getIdentity()->data['name']; 
+			$user['avatar']				= $this->context->getService('userModel')->getAvatar($user['email']);
+			$this->root['user']			= $user;
+			$this->glCache->saveCache('user', $user);
+			
+		}
+	}
+
+	/**
+	 * Check authorization
+	 * @return void
+	 */
+	public function checkRequirements($element){
+
+		$this->resource = $this->name . ":" . $this->action;
 		
-		// test prihlaseni uzivatele
-		if ($this->name != 'Admin:Sign') {
-			if ($this->user->isLoggedIn()) {
-				$user['email']				= $this->user->getIdentity()->data['email']; 
-				$user['id']					= $this->user->getIdentity()->data['id']; 
-				$user['role']				= ''; 
-				$user['name']				= $this->user->getIdentity()->data['name']; 
-				$user['avatar']				= $this->context->getService('userModel')->getAvatar($user['email']);
-				$this->root['user']			= $user;
-				$this->glCache->saveCache('user', $user);
-				
-			} else if($this->name === 'Admin:User' && ($this->action === 'forgot' || $this->action === 'reset' || $this->action === 'send' || $this->action === 'change' ) ){
-				
-			}else {
-				$this->redirect('Sign:in', array(
-					'backlink' => $this->storeRequest()
-				));
+		if(!$this->user->authorizator->hasResource( $this->resource )){
+			$this->redirect('Sign:in');
+			return;
+		}
+
+
+		if (!$this->user->isAllowed($this->resource)){
+			if (!$this->user->isLoggedIn()) {
+				$this->redirect('Sign:in', ['backlink' => $this->storeRequest()]);
+			} else {
+				throw new Nette\Application\ForbiddenRequestException;
 			}
 		}
-		
-		/*
-		if(  !$this->user->isAllowed($this->presenter->name.':'.$this->presenter->view ) && $this->name !== 'Admin:Sign' ) {
-			$this->flashMessage($this->translator->translate('ui.error.access_denied'), 'danger');
-			$this->redirect('Homepage:default');
-		}
-		*/
+
 	}
 
 
@@ -62,7 +74,7 @@ use App\Components\Mailer;
 	 */
 	public function handleLogout() {
 		$this->user->logOut();
-		$this->flashMessage('Byli jste odhlášeni.', 'success');
+		$this->flashMessage($this->translator->translate('admin.sigIn.logOut'), 'success');
 		$this->redirect('this');
 	}
 
