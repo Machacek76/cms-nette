@@ -5,10 +5,12 @@ namespace App\Forms;
 use Nette;
 use Nette\Application\UI\Form;
 
+use Nette\Utils\Html;
 
 class FormFactory
 {
 	use Nette\SmartObject;
+
 
 	/**
 	 * @return Form
@@ -18,4 +20,9 @@ class FormFactory
 		$form = new Form;
 		return $form;
 	}
+
+
+
+
+
 }

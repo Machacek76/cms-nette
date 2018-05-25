@@ -1,0 +1,10 @@
+{block content |strip}
+
+{default
+    $target = $presenter->getName().':'.$presenter->getAction(),
+    $names   = []
+
+}
+{foreach $names as $name}
+    {if $name === $target } active {/if}
+{/foreach}

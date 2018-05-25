@@ -1,0 +1,10 @@
+{block content}
+    
+    {var $role = $root['content']['role']['role']}
+    <h4>{_ admin.settings.resource.titleSetResource} <b>{_ admin.settings.role.$role}</b></h4>
+    <div>&nbsp;</div>
+    {import '../components/form-acl-edit-allow.latte'}
+    {include form aclEditAllowForm}
+
+
+{/block}

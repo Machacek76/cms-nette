@@ -31,16 +31,15 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
     public $translator;
 	
 	/** @var \GlueWork\glCache\glCacheExtension @ inject */
-	public $glCage;
+	public $glCache;
 	
 	public $httpRequest;
 	
 	public $httpResponse;
 	
-	
-	public $glCache;
-	
-	
+		
+
+
 	
 	/**
 	 * breadcrumb
@@ -54,6 +53,8 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 	
 	public function startup() {
 		parent::startup();
+
+		
 		
 		$this->httpRequest = $this->context->getByType('Nette\Http\Request');
 		$this->httpResponse = $this->context->getByType('Nette\Http\Response');
@@ -70,7 +71,6 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 		$this->glCache = $this->context->getService('glCache');
 		$this->glCache->initCache($this->context->parameters['glCache']);
 		$this->glCache->nocache = $this->httpRequest->getQuery('nocache') === NULL ? false : true;
-		
 	}
 	
 	

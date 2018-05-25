@@ -1,0 +1,116 @@
+
+{block content}
+
+{* Left side column. contains the sidebar *}
+<aside class="main-sidebar">
+    <section class="sidebar">
+        {* Sidebar user panel *}
+        <div class="user-panel">
+            <div class="pull-left image">
+                <img src="{$root['user']['avatar']}" class="img-circle" alt="User Image">
+            </div>
+            <div class="pull-left info">
+                <p>{$root['user']['name']}</p>
+                <a href="#"><i class="fa fa-circle text-success"></i> {$root['user']['role']}</a>
+            </div>
+        </div>
+        <ul class="sidebar-menu tree" data-widget="tree">
+            {*--START sidebar menus --*}
+
+			<li class='header'>{_ admin.settings.label}</li>
+			
+			<li class="treeview {include ../components/class-active.latte,  'names' => ['Admin:user', 'Admin:Acl:all', 'Admin:Acl:role', 'Admin:Acl:allow', 'Admin:Acl:resource']} ">
+				<a href="#">
+					<i class='fa fa-cogs'></i>
+					<span>{_ admin.settings.label }</span>
+					<span class="pull-right-container">
+						<i class="fa fa-angle-left pull-right"></i>
+					</span>
+				</a>
+				<ul class="treeview-menu">
+					{if  $user->isAllowed('Admin:User:all') }
+						<li {if $presenter->getAction() == 'all' } class='active'  {/if}  >
+							<a n:href="User:all">
+								<i class="fa fa-users"></i>
+								<span>{_ admin.settings.user.labelUsers}</span>
+							</a>
+						</li>
+					{/if}
+
+					{if  $user->isAllowed('Admin:Acl') }
+						<li class="{include ../components/class-active.latte,  'names' => ['Admin:Acl', 'Admin:Acl:all', 'Admin:Acl:role', 'Admin:Acl:allow', 'Admin:Acl:resource']} " >
+							<a n:href="Acl:all">
+								<i class="fa fa-key"></i>
+								<span>{_ admin.settings.acl.label}</span>
+								<span class="pull-right-container">
+									<i class="fa fa-angle-left pull-right"></i>
+								</span>
+							</a>
+							<ul class="treeview-menu">
+								{if  $user->isAllowed('Admin:Acl:all') }
+									<li>
+										<a n:href="Acl:all">
+											<i class="fa fa-deviantart"></i>
+											<span>{_ admin.settings.acl.labelDashboard}</span>
+										</a>
+									</li>
+								{/if}
+								{if  $user->isAllowed('Admin:Acl:allow') }
+									<li>
+										<a n:href="Acl:allow">
+											<i class="fa fa-deviantart"></i>
+											<span>{_ admin.settings.acl.labelAllow}</span>
+										</a>
+									</li>
+								{/if}
+							</ul>
+
+						</li>
+					{/if}
+				</ul>
+			</li>
+
+
+            {*--TEMPLATES menu item--*}
+			<li class="header">--</li>
+            <li class="treeview">
+				<a href="#">
+					<i class="fa fa-share"></i>
+					<span>Multilevel 1</span>
+					<span class="pull-right-container">
+					<i class="fa fa-angle-left pull-right"></i>
+					</span>
+				</a>
+				<ul class="treeview-menu">
+					<li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li>
+					<li class="treeview">
+					<a href="#"><i class="fa fa-circle-o"></i> Level One
+						<span class="pull-right-container">
+						<i class="fa fa-angle-left pull-right"></i>
+						</span>
+					</a>
+					<ul class="treeview-menu">
+						<li><a href="#"><i class="fa fa-circle-o"></i> Level Two</a></li>
+						<li class="treeview">
+						<a href="#"><i class="fa fa-circle-o"></i> Level Two
+							<span class="pull-right-container">
+							<i class="fa fa-angle-left pull-right"></i>
+							</span>
+						</a>
+						<ul class="treeview-menu">
+							<li><a href="#"><i class="fa fa-circle-o"></i> Level Three</a></li>
+							<li><a href="#"><i class="fa fa-circle-o"></i> Level Three</a></li>
+						</ul>
+						</li>
+					</ul>
+					</li>
+					<li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li>
+				</ul>
+            </li>
+            {*--END sidebar menus--*}
+        </ul>
+    </section>
+    {* /.sidebar *}
+</aside>
+
+{/block}

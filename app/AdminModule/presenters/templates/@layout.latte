@@ -4,8 +4,43 @@
 		{include './components/head.latte'}
 		{block head}{/block}
 	</head>
-	<body ng-app="app">
-		{include content}
+		
+		{if $user->isLoggedIn()}	
+		{*	CMS content	*}
+
+			<body class="hold-transition skin-blue fixed sidebar-mini main-cms"  ng-app="app"  {ifset ng}ng-controller="{include ng}" {/ifset}  >
+				<!-- Site wrapper -->
+				<div class="wrapper site-wrapper">
+					{include './components/menu.latte'}
+
+					{include './components/left-sidebar.latte' }
+
+					<div class="content-wrapper">
+						<section class="content-header">						
+							{* control breadCrumb *}
+						</section>
+						<section class="content">
+							{include ./components/flash-msg.latte}
+							{include content}
+						</section>
+					</div>
+				</div>
+			</body>
+
+		{elseif $presenter->getName() == 'Admin:User' && ($presenter->getAction() === 'forgot' || $presenter->getAction() === 'reset' || $presenter->getAction() === 'send'  || $presenter->getAction() === 'change' )}
+		{*  forgot password, reset pasword, etc  *}
+  		<body class="app flex-row align-items-center">
+			{include ./components/flash-msg.latte}
+				else if
+			</body>
+		{else}
+			{* login form *}
+
+			<body class="text-center">
+				{* flash message  *}				
+				{include content}
+			</body>
+		{/if}
 
 		{include './components/foot.latte'}
 		{ifset scripts}{include scripts}{/ifset}

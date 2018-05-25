@@ -44,8 +44,26 @@ session:
 services:
 	glCache: \GlueWork\glCache\glCacheExtension
 
-	- App\Model\UserManager
-	- App\Forms\FormFactory
-	- App\Forms\SignInFormFactory
-	- App\Forms\SignUpFormFactory
 	router: App\RouterFactory::createRouter
+
+	- App\Security\AuthorizatorFactory
+	Authorizator:
+		class: Nette\Security\Permission
+		factory: @App\Security\AuthorizatorFactory::create
+
+	#
+	# MODELS
+	#
+	
+	checkTables: App\Model\CheckTables
+	
+	aclResourceModel: App\Model\AclResourceModel
+	aclRoleModel: App\Model\AclRoleModel
+	aclAllowModel: App\Model\AclAllowModel
+	
+	userManager: App\Model\UserManager
+	userModel:	App\Model\UserModel
+	userMetaModel:	App\Model\UserMetaModel
+	userRoleModel:	App\Model\UserRoleModel
+
+
