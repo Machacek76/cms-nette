@@ -14,11 +14,12 @@ class UserManager implements Nette\Security\IAuthenticator
 	use Nette\SmartObject;
 
 	const
-		TABLE_NAME = 'users',
-		COLUMN_ID = 'id',
-		COLUMN_NAME = 'username',
-		COLUMN_PASSWORD_HASH = 'password',
-		COLUMN_EMAIL = 'email';
+		TABLE_NAME 				= 'users',
+		COLUMN_ID 				= 'id',
+		COLUMN_NAME 			= 'username',
+		COLUMN_PASSWORD_HASH	= 'password',
+		COLUMN_EMAIL 			= 'email',
+		COLUMN_STATUS 			= 'status';
 
 
 	/** @var Nette\Database\Context */
@@ -27,10 +28,16 @@ class UserManager implements Nette\Security\IAuthenticator
 	/** @var \Nette\Localization\ITranslator $translator */
 	private $translator;
 
+	private $roleModel;
 
-	public function __construct(Nette\Database\Context $database, \Nette\Localization\ITranslator $translator){
+
+	public function __construct(Nette\Database\Context $database, \Nette\Localization\ITranslator $translator,
+								\App\Model\UserRoleModel $roleModel 
+								){
 		$this->database = $database;
 		$this->translator = $translator;
+
+		$this->roleModel = $roleModel;
 	}
 
 
@@ -50,10 +57,13 @@ class UserManager implements Nette\Security\IAuthenticator
 
 
 		if (!$row) {
-			throw new Nette\Security\AuthenticationException($this->translator->translate('admin.sigIn.inccorrectName'), self::IDENTITY_NOT_FOUND);
+			throw new Nette\Security\AuthenticationException($this->translator->translate('admin.signIn.inccorrectName'), self::IDENTITY_NOT_FOUND);
 
+		}else if($row[self::COLUMN_STATUS] !== 1 ) {
+			throw new Nette\Security\AuthenticationException($this->translator->translate('admin.signIn.blockAccount'), self::INVALID_CREDENTIAL);
+			
 		} elseif (!Passwords::verify($password, $row[self::COLUMN_PASSWORD_HASH])) {
-			throw new Nette\Security\AuthenticationException($this->translator->translate('admin.sigIn.inccorrectPassword'), self::INVALID_CREDENTIAL);
+			throw new Nette\Security\AuthenticationException($this->translator->translate('admin.signIn.inccorrectPassword'), self::INVALID_CREDENTIAL);
 
 		} elseif (Passwords::needsRehash($row[self::COLUMN_PASSWORD_HASH])) {
 			$row->update([
@@ -63,7 +73,8 @@ class UserManager implements Nette\Security\IAuthenticator
 
 		$arr = $row->toArray();
 		unset($arr[self::COLUMN_PASSWORD_HASH]);
-		$role_arr = ['admin'];
+
+		$role_arr = $this->roleModel->getRoles( $row[self::COLUMN_ID] );
 
 		return new Nette\Security\Identity($row[self::COLUMN_ID], $role_arr, $arr);
 	}

@@ -55,15 +55,16 @@ class SignInFormFactory
 	public function create(callable $onSuccess)
 	{
 		$form = $this->factory->create();
-		$form->addText('username', $this->translator->translate('admin.sigIn.user'))
-			->setRequired($this->translator->translate('admin.sigIn.enterUsername'));
+		$form->addText('username', $this->translator->translate('admin.signIn.user'))
+			->setRequired($this->translator->translate('admin.signIn.enterUsername'));
 
-		$form->addPassword('password', $this->translator->translate('admin.sigIn.password'))
-			->setRequired($this->translator->translate('admin.sigIn.enterPassword'));
+		$form->addPassword('password', $this->translator->translate('admin.signIn.password'))
+			->setRequired($this->translator->translate('admin.signIn.enterPassword'));
 
-		$form->addCheckbox('remember', $this->translator->translate('admin.sigIn.keepSigned'));
+		$form->addCheckbox('remember', $this->translator->translate('admin.signIn.keepSigned'))
+		->setAttribute('class', 'label-success');
 
-		$form->addSubmit('send', $this->translator->translate('admin.sigIn.login'));
+		$form->addSubmit('send', $this->translator->translate('admin.signIn.login'));
 
 		$form->onSuccess[] = function (Form $form, $values) use ($onSuccess) {
 
@@ -73,10 +74,10 @@ class SignInFormFactory
 			$glc = 0; // count fail login for last hour
 			$user = $this->userModel->getUser(['username'=>$values->username], ['id','status']);
 			if(!$user){
-				$form->addError( $this->translator->translate('admin.sigIn.inccorrectName') );
+				$form->addError( $this->translator->translate('admin.signIn.inccorrectName') );
 				return;
 			}else if ($user->status === 0){
-				$form->addError( $this->translator->translate('admin.sigIn.blockAccount') );
+				$form->addError( $this->translator->translate('admin.signIn.blockAccount') );
 				return;
 			}else{ // check count fail login;
 				$this->glCache->nocache	= false;		
@@ -84,7 +85,7 @@ class SignInFormFactory
 				$glc = !$glc ? 0 : $glc;
 				$glc++;
 				if($glc > 3 ) {
-					$form->addError( $this->translator->translate('admin.sigIn.maxCountFailLogin') );
+					$form->addError( $this->translator->translate('admin.signIn.maxCountFailLogin') );
 					return;
 				}	
 			}
@@ -97,7 +98,7 @@ class SignInFormFactory
 
 			} catch (Nette\Security\AuthenticationException $e) {
 				$this->glCache->saveCache( 'fail-login-userId-' . $user->id, $glc, '60 minutes');
-				$form->addError( $this->translator->translate('admin.sigIn.inccorrectPassword') );
+				$form->addError( $this->translator->translate('admin.signIn.inccorrectPassword') );
 				return;
 			}
 

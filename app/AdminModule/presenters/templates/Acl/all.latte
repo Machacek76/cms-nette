@@ -1,0 +1,95 @@
+{block content}
+
+<div class="row">
+
+    {* resource *}
+    <div class="col-md-6">
+        <div class="box box-success box-solid">
+            <div class="box-header with-border">
+                <h3 class="box-title">{_ admin.settings.acl.labelResource}</h3>
+            </div>
+            <div class="box-body">
+                <table class="table table-striped">
+                    <tr>
+                        <th>#</th>
+                        <th>{_ admin.settings.acl.labelResource}</th>
+                        <th>{_ admin.settings.resource.labelLink}</th>
+                        <th>{_ admin.settings.resource.labelRemoveResource}</th>
+                    </tr>
+                    {foreach $root['content']['aclResource'] as $row }
+                        <tr>
+                            <td>{$row['id']}</td>
+                            <td>{$row['resource']}</td>
+                            <td>
+                                <a n:href="$row['resourceLink']">
+                                    <i class="fa fa-link"></i>
+                                    <span>{_  admin.settings.resource.labelLink}</span>
+                                </a>
+                            </td>
+                            <td>
+                                <a n:href="Acl:all, 'act'=>'remove', 'target'=>'resource', '_id'=>$row['id'] ">
+                                    <i class="fa fa-unlink"></i>
+                                    <span>{_  admin.settings.resource.labelLink}</span>
+                                </a>
+                            </td>
+                        </tr>
+                    {/foreach}
+                </table>
+            </div>
+            <div class="box-footer">
+                <h4>{_ admin.settings.resource.labelForm}</h4>
+                {import '../components/form-acl-add.latte'}
+                {include form aclAddResourceForm}
+            </div>
+        </div>
+    </div>
+    {* roles *}
+    <div class="col-md-6">
+        <div class="box box-success box-solid">
+            <div class="box-header with-border">
+                <h3 class="box-title">{_ admin.settings.acl.labelRole}</h3>
+            </div>
+            <div class="box-body no-padding">
+                <table class="table table-striped">
+                    <tr>
+                        <th>#</th>
+                        <th>{_ admin.settings.acl.labelRole}</th>
+                        <th>{_ admin.settings.role.labelTranslate}</th>
+                        <th>{_ admin.settings.role.labelRemoveRole}</th>
+                        <th>{_ admin.settings.role.labelOverview}</th>
+                    </tr>
+                    {foreach $root['content']['aclRoles'] as $row }
+                        <tr>
+                            <td>{$row['id']}</td>
+                            <td>{$row['role']}</td>
+                            <td>{var $tr = $row['role']}{_ admin.settings.role.$tr}</td>
+                            <td>
+                                {if $row['id'] != 4 && $row['id'] != 1}
+                                    <a n:href="Acl:all, 'act'=>'remove', 'target'=>'role', '_id'=>$row['id'] ">
+                                        <i class="fa fa-unlink"></i>
+                                        <span>{_  admin.settings.role.labelLink}</span>
+                                    </a>
+                                {/if}
+                            </td>
+                            <td>
+                                {if $row['id'] != 4 }
+                                    <a n:href="Acl:allow, 'id'=>$row['id'] ">
+                                        <i class="fa fa-link"></i>
+                                        <span>{_  admin.settings.role.labelLink}</span>
+                                    </a>
+                                {/if}
+                            </td>
+                        </tr>
+                    {/foreach}
+                </table>
+            </div>
+            <div class="box-footer">
+                <h4>{_ admin.settings.role.labelForm}</h4>
+                {import '../components/form-acl-add.latte'}
+                {include form aclAddRoleForm}
+            </div>
+        </div>
+    </div>
+</div>
+            
+{/block}

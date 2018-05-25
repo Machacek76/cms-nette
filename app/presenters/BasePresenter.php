@@ -53,6 +53,8 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 	
 	public function startup() {
 		parent::startup();
+
+		
 		
 		$this->httpRequest = $this->context->getByType('Nette\Http\Request');
 		$this->httpResponse = $this->context->getByType('Nette\Http\Response');

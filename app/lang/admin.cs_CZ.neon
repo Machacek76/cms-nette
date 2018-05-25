@@ -5,11 +5,12 @@ layout:
     brandName:          "CMS nette"
     brandNameAlt:       "CMS"
     logout:             "Odhlásit"
+    toggleNavigation:   "Přepnutí navigace."
 
 
 # sign in
 
-sigIn:
+signIn:
     keepSigned:         "Pamatovat přihlášení"
     errorLogin:         "Zadali jste špatné jméno nebo heslo!"
     forgotPassword:     "Zapomenuté heslo"
@@ -23,7 +24,68 @@ sigIn:
     enterUsername:      "Zadejte přihlašovací jméno"
     maxCountFailLogin:  "Příliš mnoho neuspěšných přihlášení skuste to za hodinu!"
     blockAccount:       "Účet je zablokovaný!"
-    toggleNavigation:   "Přepnutí navigace."
+    permissionDenied:   "Přístup zamítnut!!!"
+
+
+
+
+
+# settings
+settings:
+    label:              "Nastavení"
+
+
+    role:
+        labelTranslate: "Překlad"
+        guest:          "Nepřihlášený uživatel"
+        user:           "Základní uživatel"
+        editor:         "Editor"
+        admin:          "Administrátor"
+        labelForm:      "Přidat roli:"
+        labelFormData:  "Role:"
+        labelLink:      "Link"
+        labelOverview:  "Přehled"
+        roleNotFound:   "Role id %id% nebyla nalezena!"    
+        labelRemoveRole:    "Smazat"
+        labelFormRequired:  "Vložte nové roli!"
+        labelFormTarget:    "Module: (Admin, Api)"
+        labelSave:          "Uložit"
+        inccorrectRole:     "Role je již nastaveno"
+        permissionDenied:   "Role id %id% se nejde editovat!"
+
+    acl:
+        label:          "Oprávnění"
+        labelRole:      "Role"
+        labelAllow:     "Přístup"
+        labelResource:  "Zdroje"
+        addResource:    "Přidat zdroj"
+        addRole:        "Přidat roli"
+        editAllow:      "Změnint přístup"
+        labelDashboard: "Přehled"
+
+    resource:
+        labelLink:      "Link"
+        labelSend:      "Vložit"
+        labelSave:      "Uložit"
+        labelForm:      "Přidat oprávnění:"
+        labelFormData:  "Oprávnění:"
+        
+        labelFormTarget:     "Module: (Admin, Api)"
+        labelAcessdenied:    "Není přístup"
+        labelRemoveResource: "Smazat"
+        labelFormRequired:   "Vložte nové oprávnění!"
+        inccorrectResource:  "Oprávnění je již nastaveno"
+        titleSetResource:    "Nastavení oprávnění pro roli:"
+
+    user:
+        labelUser:       "Uživatel"
+        labelUsers:      "Uživatelé"
+        labelAllUsers:   "Všichni uživatelé"
+        labelSettings:   "Nastavení uživatelů"
+
+
+
+
 
 
 

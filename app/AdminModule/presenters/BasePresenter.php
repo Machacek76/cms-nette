@@ -50,18 +50,22 @@ use App\Components\Mailer;
 	public function checkRequirements($element){
 
 		$this->resource = $this->name . ":" . $this->action;
+
+		$this->root['system']['resource'] = $this->resource;
 		
 		if(!$this->user->authorizator->hasResource( $this->resource )){
 			$this->redirect('Sign:in');
 			return;
 		}
 
+	//	dump($this->resource);
 
 		if (!$this->user->isAllowed($this->resource)){
 			if (!$this->user->isLoggedIn()) {
 				$this->redirect('Sign:in', ['backlink' => $this->storeRequest()]);
 			} else {
-				throw new Nette\Application\ForbiddenRequestException;
+				$this->flasHMessage($this->translator->translate('admin.signIn.permissionDenied'), 'danger');
+				$this->redirect('Homepage:default');
 			}
 		}
 
@@ -74,7 +78,7 @@ use App\Components\Mailer;
 	 */
 	public function handleLogout() {
 		$this->user->logOut();
-		$this->flashMessage($this->translator->translate('admin.sigIn.logOut'), 'success');
+		$this->flashMessage($this->translator->translate('admin.signIn.logOut'), 'success');
 		$this->redirect('this');
 	}
 

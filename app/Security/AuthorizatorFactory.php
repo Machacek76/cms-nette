@@ -8,46 +8,65 @@ use Nette,
 class AuthorizatorFactory  {
 
 
-    const ROLE_ADMIN    = 'admin';
-    const ROLE_EDITOR   = 'editor';
-    const ROLE_USER     = 'user';
-    const ROLE_GUEST    = 'guest';
+    /** @var \App\Model\AclResourceModel */
+    public $aclResourceModel;
+
+
+    /** @var \App\Model\AclRoleModel */
+    public $aclRoleModel;
+
+    /** @var \App\Model\AclAllowModel */
+    public $aclAllowModel;
+
+
+
+    public function __construct(\App\Model\AclResourceModel $aclResourceModel, \App\Model\AclAllowModel $aclAllowModel, \App\Model\AclRoleModel $aclRoleModel)
+    {
+        $this->aclResourceModel = $aclResourceModel;
+        $this->aclRoleModel = $aclRoleModel;
+        $this->aclAllowModel = $aclAllowModel;
+    }
 
 
     public function create()
     {
         $acl = new Permission;
 
-        $acl->addRole(self::ROLE_GUEST);
-        $acl->addRole(self::ROLE_USER, self::ROLE_GUEST);
-        $acl->addRole(self::ROLE_EDITOR, self::ROLE_USER);
-        $acl->addRole(self::ROLE_ADMIN, self::ROLE_EDITOR);
 
+        /** settings role DB */
+        $res = $this->aclRoleModel->findAll();
+        $rows = $res->fetchAll();
+        $roles = [];
+        foreach ($rows as $row){
+            $roles[$row->id] = $row->role;
+            $acl->addRole($row->role);
+        }
 
-        $acl->addResource('Admin');
-        $acl->addResource('Admin:Homepage:default', 'Admin');
-        $acl->addResource('Admin:User:forgot', 'Admin');
-        $acl->addResource('Admin:User:reset', 'Admin');
-        $acl->addResource('Admin:User:setting', 'Admin');
-        $acl->addResource('Admin:User:default', 'Admin');
-        $acl->addResource('Admin:User:all', 'Admin');
+        /** settings resource DB */
+        $res = $this->aclResourceModel->findAll();
+        $rows = $res->fetchAll();
+        $resources = [];
+        foreach ($rows as $row){
+            $resources[$row->id] = $row->resource;
+            $acl->addResource($row->resource);
+        }
+        
 
-        $acl->addResource('Admin:Sign:in', 'Admin');
-
-        // quest
-
-
-        // user
-        $acl->allow(self::ROLE_GUEST, 'Admin:Sign:in');
-        $acl->allow(self::ROLE_GUEST, 'Admin:User:forgot');
-        $acl->allow(self::ROLE_GUEST, 'Admin:User:reset');
-
-        // editor
-        $acl->allow(self::ROLE_EDITOR, 'Admin:Homepage:default');
-
-
+        //dump($roles, $resources);
+        
+        /** settings allow  DB */
+        $res = $this->aclAllowModel->findAll();
+        $rows = $res->fetchAll();
+        foreach ($rows as $row){
+        //   dump($row->id_acl_role . ' - ' . $row->id_acl_resource);
+            $acl->allow($roles[ $row->id_acl_role], $resources[$row->id_acl_resource]);
+        }
+        
+       // die;
         // admin
-        $acl->allow(self::ROLE_ADMIN,  Permission::ALL, Permission::ALL);
+        $acl->allow('admin',  Permission::ALL, Permission::ALL);
+
+
 
         return $acl;
     }
