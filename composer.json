@@ -26,6 +26,7 @@
 		"GlueWork/glCache": "^0.7.0"
 	},
 	"require-dev": {
-		"nette/tester": "~1.3"
+		"nette/tester": ">= 2.0",
+		"mrtnzlml/testbench": ">= 2.0"
 	}
 }
