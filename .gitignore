@@ -52,3 +52,7 @@ www/media/files/*
 
 
 app/config/config.local.neon
+
+
+
+Testbench/_temp

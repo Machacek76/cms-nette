@@ -25,21 +25,18 @@
 						</section>
 					</div>
 				</div>
-			</body>
 
 		{elseif $presenter->getName() == 'Admin:User' && ($presenter->getAction() === 'forgot' || $presenter->getAction() === 'reset' || $presenter->getAction() === 'send'  || $presenter->getAction() === 'change' )}
 		{*  forgot password, reset pasword, etc  *}
   		<body class="app flex-row align-items-center">
 			{include ./components/flash-msg.latte}
 				else if
-			</body>
 		{else}
 			{* login form *}
 
 			<body class="text-center">
 				{* flash message  *}				
 				{include content}
-			</body>
 		{/if}
 
 		{include './components/foot.latte'}

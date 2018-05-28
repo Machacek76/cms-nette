@@ -60,8 +60,13 @@ use Nette;
 		switch ( $code ){
 			case 200: $this->payload->data	= ['code'=>'E200', 'msg'=>'OK']; break; 
 			case 400: $this->payload->error	= ['code'=>'E400', 'msg'=>'Bad Request']; break; 
-			case 403: $this->payload->error = ['code'=>'E403', 'msq'=>'Forbiden'];	break;
-			case 404: $this->payload->error = ['code'=>'E404', 'msq'=>'Not found'];	break;
+			case 403: 
+				$this->httpResponse->setCode(Nette\Http\Response::S403_FORBIDDEN);
+				$this->payload->error = ['code'=>'E403', 'msq'=>'Forbidden'];	
+				break;
+			case 404: 
+				$this->httpResponse->setCode(Nette\Http\Response::S404_NOT_FOUND);
+				$this->payload->error = ['code'=>'E404', 'msq'=>'Not found'];	break;
 			default:  $this->payload->error = ['code'=>$code];
 		}
 
