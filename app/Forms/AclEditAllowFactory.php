@@ -55,16 +55,31 @@ class AclEditAllowFactory{
 
 		$form = $this->factory->create();
 
-		$res = $this->aclResourceModel->findAll();
+		$res = $this->aclResourceModel->findAll()->order('target');
 		$resources = $res->fetchAll();
 
 
 		foreach($resources as $resource){
 			$check = $this->aclAllowModel->getAllow($resource->id, $roleID);
 
-			$form->addCheckbox("allowID_" . $resource->id, $resource->resource)
-			->setDefaultValue($check)
+			$resCheck = $check ? TRUE : FALSE;
+			$priCheck = $check ? $check->privilege : 'none';
+
+			$form->addCheckbox("resourceID_" . $resource->id, $resource->resource)
+			->setDefaultValue($resCheck)
 			->setAttribute('class', 'label-success');
+
+
+			if($resource->target === 'Api'){
+
+				$form->addSelect('privilegeID_' . $resource->id, $this->translator->translate('admin.settings.privilege.label'), [
+					'getCurrent' => $this->translator->translate('admin.settings.privilege.labelCurrent'),
+					'getAll' => $this->translator->translate('admin.settings.privilege.labelAll'),
+					'none' => $this->translator->translate('admin.settings.privilege.labelNone')
+				])->setDefaultValue($priCheck);
+			}
+
+
 		}
 
 		$form->addHidden('roleID')->setDefaultValue($roleID);
@@ -75,14 +90,22 @@ class AclEditAllowFactory{
 		$form->onSuccess[] = function (Form $form, $values) use ($onSuccess) {
 
 			$roleID = (int)$values->roleID;
-			foreach($values as $key=>$value){
-				$arr = explode('_', $key);
+			
+			$resourceArr = [];
+			$privilegeArr = [];
 
-				if (isset($arr[1])){
-					$resourceID = (int)$arr[1];
-					$this->aclAllowModel->setAllow($roleID, $resourceID, $value);
+			foreach($values as $key=>$value){
+				
+				if(strpos($key, 'privilegeID') === 0){
+					$privilegeArr[] = ['key'=>explode('_', $key), 'value'=>$value];
+				}else if(strpos($key, 'resourceID') === 0){
+					$resourceArr[] = ['key'=>explode('_', $key), 'value'=>$value];
 				}
 			}
+
+			/** first save resource */
+			$this->saveAllow ($roleID, $resourceArr);
+			$this->saveAllow ($roleID, $privilegeArr);
 			$onSuccess();
 		};
 
@@ -90,7 +113,12 @@ class AclEditAllowFactory{
 	}
 
 
+	public function saveAllow ($roleID, $data){
 
+		foreach ($data as $item){
+			$this->aclAllowModel->setAllow( $roleID, $item['key'][1], $item['value'], $item['key'][0] );
+		}
+	}
 
 
 

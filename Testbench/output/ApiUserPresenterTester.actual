@@ -1,0 +1,16 @@
+[
+	[
+		'id' => 1,
+		'username' => 'Admin',
+		'name' => 'Admin',
+		'email' => 'admin@example.com',
+		'status' => 1,
+	],
+	[
+		'id' => 2,
+		'username' => 'TestUser',
+		'name' => 'Test User',
+		'email' => 'testuser@example.com',
+		'status' => 1,
+	],
+]

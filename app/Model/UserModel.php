@@ -22,7 +22,30 @@ class UserModel extends BaseModel{
 		return $res;
 	}
 	
-	
+	public function getApiUser ($id){
+		$out = [];
+
+		if($id === 'all'){
+			$res = $this->findAll();//->select('username', 'name', 'status', 'email');
+			$rows = $res->fetchAll();
+			$arr = [];
+			foreach($rows as $row){
+				$arr = $row->toArray();
+				unset($arr['password']);
+				$out[] = $arr;
+				unset($arr);
+			}
+		}else{
+			$res = $this->findOneBy(['id'=>$id]);
+			if(!$res){
+				$out = NULL;
+			}else{
+				$out = $res->toArray();
+				unset($out['password']);
+			}
+		}
+		return $out;
+	}
 
 
 

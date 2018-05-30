@@ -15,14 +15,7 @@ class AclAllowModel extends BaseModel
      * @return boolean 
      */
     public function getAllow (int $resourceID, int $roleID ){
-
-        $res = $this->findOneBy(['id_acl_resource'=>$resourceID, 'id_acl_role'=>$roleID ]);
-        
-        if ($res){
-            return TRUE;
-        }else{
-            return FALSE;
-        }
+        return $this->findOneBy(['id_acl_resource'=>$resourceID, 'id_acl_role'=>$roleID ]);
     }
 
     /**
@@ -30,17 +23,20 @@ class AclAllowModel extends BaseModel
      *
      * @param integer $resourceID
      * @param integer $roleID
-     * @param boolean $value
+     * @param mixed $value
+     * @param string $target resourceID / privilegeID
      * @return void
      */
-    public function setAllow (int $roleID, int $resourceID, $value){
+    public function setAllow (int $roleID, int $resourceID, $value, string $target){
         $resLocal =  $this->findOneBy(['id_acl_resource'=>$resourceID, 'id_acl_role'=>$roleID]);
 
         if($value){
-            if(!$resLocal){
+            if(!$resLocal && $target === 'resourceID' ){
                 $this->insert(['id_acl_resource'=>$resourceID, 'id_acl_role'=>$roleID]);
+            }else if($resLocal && $target === 'privilegeID'){
+                $this->updateBy(['id'=>$resLocal->id], ['privilege' => $value] );
             }
-        }else{
+        }else if (  $target === 'resourceID' )  {
             if($resLocal){
                 $this->delete($resLocal->id);
             }

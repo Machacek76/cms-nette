@@ -45,7 +45,7 @@ class SignInFormFactory
 		$this->userMetaModel	= $userMetaModel;
 		$this->glCache			= $glCache;
 		/* vyresit cachovani  */
-		$this->glCache->initCache(['tempDir'=>__DIR__ . "/../../temp/_glcache", 'name'=>'glCache']);
+		$this->glCache->initCache(['tempDir'=>__DIR__ . "/../../temp/_glCache", 'name'=>'glCache']);
 	}
 
 
