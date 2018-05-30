@@ -83,6 +83,12 @@ settings:
         labelAllUsers:   "Všichni uživatelé"
         labelSettings:   "Nastavení uživatelů"
 
+    privilege:
+        label:          "Api přístup"
+        labelCurrent:   "Jenom aktální uživatel"
+        labelAll:       "Všechny"
+        labelNone:      "Bez přístupu"
+
 
 
 

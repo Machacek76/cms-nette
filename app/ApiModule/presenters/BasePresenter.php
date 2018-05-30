@@ -21,12 +21,7 @@ use Nette;
     
 	public function startup() {
 		parent::startup();
-		
-		if(  !$this->user->isAllowed($this->presenter->name.':'.$this->presenter->view ) ) {
-			
-			$this->sendError(403);
-			$this->terminate;
-		}
+
 		$this->ngData = $this->getNgData();
 	}
 
@@ -47,6 +42,16 @@ use Nette;
 		}
 	}
 	
+	/**
+	 * Undocumented function
+	 *
+	 * @return type json
+	 */
+	public function getPostNgData () {
+//		$input
+	}
+
+
 
 	
 	/**
@@ -62,11 +67,12 @@ use Nette;
 			case 400: $this->payload->error	= ['code'=>'E400', 'msg'=>'Bad Request']; break; 
 			case 403: 
 				$this->httpResponse->setCode(Nette\Http\Response::S403_FORBIDDEN);
-				$this->payload->error = ['code'=>'E403', 'msq'=>'Forbidden'];	
+				$this->payload->error = ['code'=>'E403', 'msg'=>'FORBIDEN'];	
 				break;
 			case 404: 
 				$this->httpResponse->setCode(Nette\Http\Response::S404_NOT_FOUND);
-				$this->payload->error = ['code'=>'E404', 'msq'=>'Not found'];	break;
+				$this->payload->error = ['code'=>'E404', 'msg'=>'NOT_FOUND'];	
+				break;
 			default:  $this->payload->error = ['code'=>$code];
 		}
 
@@ -84,7 +90,13 @@ use Nette;
     public function afterRender(){
 		$this->sendPayload();
 	}
-    
+	
+	
+
+
+	public function getPrivilege(string $resource, string $privilege){
+		return $this->user->isAllowed($resource, $privilege);
+	}
 
 
  }

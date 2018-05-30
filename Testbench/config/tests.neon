@@ -1,0 +1,36 @@
+
+
+
+
+
+parameters:
+
+    testUsers:
+
+        admin:
+            role: 'admin'
+            data: 
+                email: 'admin@example.com'
+                id: 1
+                name: 'admin tester'
+
+        user:
+            role: 'user'
+            data: 
+                email: 'testUser@example.com'
+                id: 2
+                name: 'user tester'
+
+
+
+
+
+
+
+
+
+
+
+
+
+

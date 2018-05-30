@@ -13,10 +13,12 @@
 
 			<div n:foreach="$form->controls as $name => $input"
 				n:if="!$input->getOption(rendered) && $input->getOption(type) !== hidden"
-				n:class="form-group, $input->required ? required, $input->error ? has-error, $input->getOption(type) == button ? col-md-12 : col-md-4 ">
+				n:class="form-group, $input->required ? required, $input->error ? has-error">
 
 				{if $input->getOption(type) in [text, select, textarea]}
-					{input $input class => form-control}
+					<div style="max-width: 200px">
+						{input $input class => form-control}
+					</div>
 				{elseif $input->getOption(type) === button}
 					{input $input class => "btn btn-primary"}
 				{elseif $input->getOption(type) === checkbox}

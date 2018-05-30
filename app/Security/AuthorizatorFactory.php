@@ -47,22 +47,22 @@ class AuthorizatorFactory  {
         $rows = $res->fetchAll();
         $resources = [];
         foreach ($rows as $row){
-            $resources[$row->id] = $row->resource;
+            $resources[$row->id] = [$row->resource, $row->target, $row->id];
             $acl->addResource($row->resource);
         }
-        
+    
 
-        //dump($roles, $resources);
-        
         /** settings allow  DB */
         $res = $this->aclAllowModel->findAll();
         $rows = $res->fetchAll();
         foreach ($rows as $row){
-        //   dump($row->id_acl_role . ' - ' . $row->id_acl_resource);
-            $acl->allow($roles[ $row->id_acl_role], $resources[$row->id_acl_resource]);
+            if($resources[ $row->id_acl_resource][1] === 'Api' ){
+                $acl->allow($roles[$row->id_acl_role], $resources[$row->id_acl_resource][0], $row['privilege']);
+            }else{
+                $acl->allow($roles[$row->id_acl_role], $resources[$row->id_acl_resource][0]);
+            }
         }
         
-       // die;
         // admin
         $acl->allow('admin',  Permission::ALL, Permission::ALL);
 

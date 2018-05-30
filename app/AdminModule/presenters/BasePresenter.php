@@ -82,6 +82,13 @@ use App\Components\Mailer;
 		$this->redirect('this');
 	}
 
+
+
+	public function getLink(string $resource ){
+		$resource = \strtolower($resource);
+		return "\\" . \str_replace(':', "\\", $resource);
+	}
+
 	
     public function afterRender() {
         parent::afterRender();

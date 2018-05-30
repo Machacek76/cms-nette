@@ -62,11 +62,10 @@ class AclPresenter extends BasePresenter{
         $rows = $res->fetchAll();
         foreach($rows as $row){
             $arr = $row->toArray();
-            $arr['resourceLink']  = \str_replace('Admin:', '', $arr['resource']); 
+            $arr['resourceLink']  = $this->getLink($arr['resource']); 
             $this->root['content']['aclResource'][] = $arr;
             unset($arr);
         }
-
     }
 
 

@@ -42,29 +42,7 @@
 							<a n:href="Acl:all">
 								<i class="fa fa-key"></i>
 								<span>{_ admin.settings.acl.label}</span>
-								<span class="pull-right-container">
-									<i class="fa fa-angle-left pull-right"></i>
-								</span>
 							</a>
-							<ul class="treeview-menu">
-								{if  $user->isAllowed('Admin:Acl:all') }
-									<li>
-										<a n:href="Acl:all">
-											<i class="fa fa-deviantart"></i>
-											<span>{_ admin.settings.acl.labelDashboard}</span>
-										</a>
-									</li>
-								{/if}
-								{if  $user->isAllowed('Admin:Acl:allow') }
-									<li>
-										<a n:href="Acl:allow">
-											<i class="fa fa-deviantart"></i>
-											<span>{_ admin.settings.acl.labelAllow}</span>
-										</a>
-									</li>
-								{/if}
-							</ul>
-
 						</li>
 					{/if}
 				</ul>
