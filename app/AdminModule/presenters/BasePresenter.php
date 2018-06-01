@@ -11,8 +11,11 @@ use App\Components\Mailer;
  * Base presenter for all application presenters.
  */
  class BasePresenter extends \App\Presenters\BasePresenter{
-        
-    
+		
+	 
+	/** @var url $id  */
+	public $id;
+
     /** @var $root */
 	public $root;
 	
@@ -89,7 +92,29 @@ use App\Components\Mailer;
 		return "\\" . \str_replace(':', "\\", $resource);
 	}
 
-	
+	/**
+	 * Undocumented function
+	 *
+	 * @param [type] $id
+	 * @return void 
+	 */
+    public function checkAccess ($id = NULL){
+        
+        // if $id is NULL set id current login user ID
+        if (!$id){
+            $this->id = $this->user->id;
+        }else{
+            $this->id = $id;
+        }
+
+        // if user isn't admin role and $id !== current login user ID redirect to admin homepage 
+        if(!$this->user->isInRole('admin') && (int)$this->id !== $this->user->id){
+            $this->flashMessage($this->translator->translate('admin.settings.user.accessDenied'), 'danger');
+            $this->redirect('Homepage:default');
+        }
+    }
+
+
     public function afterRender() {
         parent::afterRender();
         $this->template->root = $this->root;

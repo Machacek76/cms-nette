@@ -44,9 +44,10 @@ body {
   display: flex;
   -ms-flex-align: center;
   align-items: center;
-  padding-top: 40px;
-  padding-bottom: 40px;
   background-color: #e6e6e6;
+}
+body .content-wrapper {
+  overflow: auto;
 }
 
 .site-wrapper {
@@ -57,12 +58,19 @@ body {
     FORMS
 **********************************************************************************/
 /* 
-    Created on : 23.2.2018, 23:37:57
+    Created on : 2018-05-31
     Author     : Milan Machacek
 */
-.material-switch > label > input[type=checkbox] {
-  margin: 0;
-  cursor: pointer;
+.material-switch {
+  margin-top: 10px;
+}
+
+.material-switch > input[type=checkbox] {
+  display: none;
+}
+
+.material-switch > input[type=checkbox] {
+  display: none;
 }
 
 .material-switch > label {
@@ -72,40 +80,39 @@ body {
   width: 40px;
 }
 
-.material-switch > label > input[type=checkbox]::before {
-  background: #646464;
+.material-switch > label::before {
+  background: black;
   box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.5);
   border-radius: 8px;
   content: "";
   height: 16px;
-  margin-top: -2px;
-  margin-left: -4px;
+  margin-top: -8px;
   position: absolute;
-  opacity: 1;
+  opacity: 0.3;
   transition: all 0.4s ease-in-out;
   width: 40px;
 }
 
-.material-switch > label > input[type=checkbox]::after {
+.material-switch > label::after {
   background: white;
   border-radius: 16px;
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
   content: "";
   height: 24px;
   left: -4px;
-  margin-top: -2px;
+  margin-top: -8px;
   position: absolute;
   top: -4px;
   transition: all 0.3s ease-in-out;
   width: 24px;
 }
 
-.material-switch > label > input[type=checkbox]:checked::before {
+.material-switch > input[type=checkbox]:checked + label::before {
   background: inherit;
-  opacity: 1;
+  opacity: 0.5;
 }
 
-.material-switch > label > input[type=checkbox]:checked::after {
+.material-switch > input[type=checkbox]:checked + label::after {
   background: inherit;
   left: 20px;
 }
@@ -113,11 +120,55 @@ body {
 /**********************************************************************************
     COMPONENTS
 **********************************************************************************/
+/* 
+    Created on : 2018-06-01
+    Author     : Milan Machacek
+*/
+.mt-5 {
+  margin-top: 5px;
+}
+
+.mr-5 {
+  margin-right: 5px;
+}
+
+.mb-5 {
+  margin-bottom: 5px;
+}
+
+.ml-5 {
+  margin-left: 5px;
+}
+
+.m-5 {
+  margin: 5px;
+}
+
+.mt-10 {
+  margin-top: 10px;
+}
+
+.mr-10 {
+  margin-right: 10px;
+}
+
+.mb-10 {
+  margin-bottom: 10px;
+}
+
+.ml-10 {
+  margin-left: 10px;
+}
+
+.m-10 {
+  margin: 10px;
+}
+
 .form-signin {
   width: 100%;
-  max-width: 420px;
+  width: 500px;
   padding: 15px;
-  margin: auto;
+  margin: 5% auto 0 auto;
   background: #ffffff;
   text-align: left;
 }

@@ -21,8 +21,8 @@ class SignPresenter extends BasePresenter{
 	private $signUpFactory;
 
 
-	public function __construct(Forms\SignInFormFactory $signInFactory, Forms\SignUpFormFactory $signUpFactory)
-	{
+	public function __construct(Forms\SignInFormFactory $signInFactory, Forms\SignUpFormFactory $signUpFactory){
+
 		$this->signInFactory = $signInFactory;
 		$this->signUpFactory = $signUpFactory;
 		
@@ -33,6 +33,9 @@ class SignPresenter extends BasePresenter{
 
 	public function renderIn (){
 		//$this->flashMessage('Danger', 'danger');
+		if($this->user->isLoggedIn()){
+			$this->redirect('Homepage:');
+		}
 	}
 
 

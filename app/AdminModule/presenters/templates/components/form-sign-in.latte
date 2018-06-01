@@ -15,15 +15,24 @@
 				n:if="!$input->getOption(rendered) && $input->getOption(type) !== hidden"
 				n:class="form-group, $input->required ? required, $input->error ? has-error">
 
-				<div class="col-sm-3 control-label">{label $input}</div>
+				<div class="col-sm-4 control-label">
+					{if $input->getOption(type) === checkbox}
+						<label>{$input->caption}</label>
+					{else}
+						{label $input}
+					{/if}
+				</div>
 
-				<div class="col-sm-9">
+				<div class="col-sm-8">
 					{if $input->getOption(type) in [text, select, textarea]}
 						{input $input class => form-control}
 					{elseif $input->getOption(type) === button}
 						{input $input class => "btn btn-primary"}
 					{elseif $input->getOption(type) === checkbox}
-						<div class="material-switch ">{input $input}</div>
+						<div class="material-switch ">
+							<input type=checkbox name="{$input->name}" id="frm-{$formName}-{$input->name}" {if $input->value == 1}checked{/if} >
+							<label for="frm-{$formName}-{$input->name}" class="label-success" ></label>
+						</div>
 					{elseif $input->getOption(type) === radio}
 						<div class="radio">{input $input}</div>
 					{else}

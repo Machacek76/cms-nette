@@ -8,6 +8,8 @@ services:
 	- App\Forms\AclAddRoleFactory
 	- App\Forms\AclEditAllowFactory
 
+	- App\Forms\UserEditFactory
+
 #	- App\Forms\EditUserFormFactory
 #	- App\Forms\ForgotFormFactory
 #	- App\Forms\ResetPasswordFormFactory

@@ -27,6 +27,8 @@ signIn:
     permissionDenied:   "Přístup zamítnut!!!"
 
 
+form:
+    notValidEmail:      "Email nemá správný formát!"
 
 
 
@@ -78,19 +80,37 @@ settings:
         titleSetResource:    "Nastavení oprávnění pro roli:"
 
     user:
-        labelUser:       "Uživatel"
-        labelUsers:      "Uživatelé"
-        labelAllUsers:   "Všichni uživatelé"
-        labelSettings:   "Nastavení uživatelů"
+        labelLink:      "Link"
+        labelUser:      "Uživatel"
+        labelUsers:     "Uživatelé"
+        labelAllUsers:  "Všichni uživatelé"
+        labelSettings:  "Nastavení uživatelů"
+        name:           "Jméno"
+        role:           "Role"
+        email:          "Email"
+        status01:       "Přístup do cms:"
+        status0:        "zakázán"
+        status1:        "povolen"
+        userName:       "User name"
+        edit:           "Změnit"
+        notFound:       "Uživatel %id% nenalezen"
+        userOverview:   "Přehled informací o oživateli:"
+        editUser:       "Upravit uživatele:"
+        statusForm:     "Přístup do cms:"
+        userIdForm:     "ID uživatele:"
+        userEmailForm:  "Email:"
+        userNameForm:   "Přihlašovací jméno:"
+        save:           "Uložit"
+        changePsw:      "Nové heslo:"
+        lowPass:        "Heslo je příliš krátké!"
+        accessDenied:   "Přístup zamítnut"
+        addNewUser:     "Přidat nového uživatele."
 
     privilege:
         label:          "Api přístup"
         labelCurrent:   "Jenom aktální uživatel"
         labelAll:       "Všechny"
         labelNone:      "Bez přístupu"
-
-
-
 
 
 
