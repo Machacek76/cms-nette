@@ -42,6 +42,29 @@ class AdminSignPresenterTest  extends \Tester\TestCase {
 
 
 
+    public function testRenderSignForgot (){
+
+        $response = $this->checkAction('Admin:Sign:forgot', );
+        $dom = @\Tester\DomQuery::fromHtml($response->getSource()); // @ - not valid HTML
+        Assert::true( $dom->has('input[name="username"]') );
+
+        $this->testUsers = $this->getPresenter()->context->parameters['testUsers'];
+        /** ============================================= */
+		/** test user no access */
+        /** ============================================= */
+        $this->login($this->testUsers['user']['data']['id'], $this->testUsers['user']['role'], $this->testUsers['user']['data'] );  
+        $this->checkRedirect('Admin:Sign:forgot', '/admin/'); 
+        $this->logOut();
+        
+        /** ============================================= */
+		/** test admin with access */
+		/** ============================================= */
+        $this->login($this->testUsers['admin']['data']['id'], $this->testUsers['admin']['role'], $this->testUsers['admin']['data'] );  
+        $this->checkRedirect('Admin:Sign:forgot', '/admin/'); 
+        $this->logOut();
+    }
+
+
 
 }
 
