@@ -23,13 +23,20 @@ class UserPresenter extends BasePresenter  {
     /** @var Forms\UserEditFactory */
     public $userEditFactory;
 
+    /** @var Forms\SignUpFormFactory */
+    public $signUpFactory;
+
+
+
+
     /**
      * Undocumented function
      *
      * @param Forms\UserEditFactory $userEditFactory
      */
-	public function __construct(Forms\UserEditFactory $userEditFactory){
-		$this->userEditFactory = $userEditFactory;	
+	public function __construct(Forms\UserEditFactory $userEditFactory, Forms\SignUpFormFactory $signUpFactory){
+        $this->userEditFactory = $userEditFactory;	
+        $this->signUpFactory = $signUpFactory;
 	}
 
 
@@ -66,7 +73,7 @@ class UserPresenter extends BasePresenter  {
      * @return void
      */
     public function renderEdit($id = NULL){
-        $this->checkAccess($id);
+        $this->checkAccess($id, 'Admin:User:all');
 
         $res = $this->context->getService('userModel')->getApiUser($id);
 
@@ -81,14 +88,9 @@ class UserPresenter extends BasePresenter  {
                 $this->flashMessage($this->translator->translate('admin.settings.user.notFound', $this->id), 'danger');
                 $this->redirect('User:get', ['id'=>$this->user->id]);
             }
-        }else{
-            // if not admin user, user not editing status
-            if(!$this->user->isInRole('admin')){
-                unset($res['status']);
-            }
-            $this->editUser = $res;
         }
 
+        $this->setEditUser($res['id']);
 
         if($this->saveEditUser) {
             $this->redirect('User:get', ['id'=>$this->id]);
@@ -102,7 +104,7 @@ class UserPresenter extends BasePresenter  {
      * @return void
      */
     public function renderGet($id = NULL){
-        $this->checkAccess($id);
+        $this->checkAccess($id, 'Admin:User:all');
 
         $res = $this->context->getService('userModel')->getApiUser($id);
 
@@ -124,36 +126,43 @@ class UserPresenter extends BasePresenter  {
 
 
 
+    public function renderAdd () {
+
+    }
+
+
+	/**
+	 * User edit form factory.
+	 * @return Form
+	 */
+	protected function createComponentSignUpForm(){
+        $this->checkAccess($this->user->id, 'Admin:User:add');
+
+		return $this->signUpFactory->create(function () {
+            $this->redirect('User:all');
+		});
+	}
+
 
 	/**
 	 * User edit form factory.
 	 * @return Form
 	 */
 	protected function createComponentUserEditForm(){
-        
+
         if(!$this->editUser){
-            $res = $this->context->getService('userModel')->getApiUser((int)$this->httpRequest->getPost('id'));
-            // if not admin user, user not editing status
-            if(!$this->user->isInRole('admin')){
-                unset($res['status']);
-            }
-            $this->editUser = $res;
+            $this->setEditUser((int)$this->httpRequest->getPost('id') );
         }
 
 
-
 		return $this->userEditFactory->create(function ($values) {
-            $this->checkAccess($values->id);
+            $this->checkAccess($values->id, 'Admin:User:all');
             
             if($values->id != -1){
 
                 $newUser['id'] = $values->id;
                 $newUser['email'] = $values->email;
 
-                if( property_exists($values, 'status') ){
-                    $newUser['status'] = $values->status == false ? 0 : 1;
-                }
-                
                 if( strlen($values->password) > 0 ){
                     if( strlen($values->password > 8) ) {
                         $newUser['password'] = Passwords::hash($values->password);
@@ -166,15 +175,49 @@ class UserPresenter extends BasePresenter  {
 
                 $this->context->getService('userModel')->update($newUser);
                 
+                if($this->user->isAllowed('Admin:User:all')){
+                    $newUser['status'] = $values->status == false ? 0 : 1;
+                    $this->context->getService('userRoleModel')->findAll()->where('id_user = ?', $values->id )->delete();
+                    foreach ($values as $key => $val) {
+                        if(strpos($key, 'role_') === 0){
+                            if($val) {
+                                $arr = explode('_', $key);
+                                $this->context->getService('userRoleModel')->insert(['id_user'=>$values->id, 'id_acl_role'=>$arr[1]]);      
+                                unset($array);
+                            }
+                        }
+                    }
+                }
+
                 $this->saveEditUser = TRUE;
             }
             
-
-
-
 		}, $this->editUser);
 	}
 
+
+
+
+
+
+
+    public function setEditUser (int $userId){
+        
+
+        $res = $this->context->getService('userModel')->getApiUser($userId);
+
+        if(!$this->user->isAllowed('Admin:User:all')){
+            unset($res['status']);
+        }else{
+            $roles = $this->context->getService('userRoleModel')->getRoles($userId, TRUE);
+            
+            foreach ($roles as $role){
+                $res['role_' . $role['id_acl_role']] = 1;
+            }
+        }
+        
+        $this->editUser = $res;
+    }
 
 
 

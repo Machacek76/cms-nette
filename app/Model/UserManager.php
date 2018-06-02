@@ -16,7 +16,8 @@ class UserManager implements Nette\Security\IAuthenticator
 	const
 		TABLE_NAME 				= 'users',
 		COLUMN_ID 				= 'id',
-		COLUMN_NAME 			= 'username',
+		COLUMN_NAME 			= 'name',
+		COLUMN_USERNAME			= 'username',
 		COLUMN_PASSWORD_HASH	= 'password',
 		COLUMN_EMAIL 			= 'email',
 		COLUMN_STATUS 			= 'status';
@@ -51,7 +52,7 @@ class UserManager implements Nette\Security\IAuthenticator
 		list($username, $password) = $credentials;
 
 		$row = $this->database->table(self::TABLE_NAME)
-			->where(self::COLUMN_NAME, $username)
+			->where(self::COLUMN_USERNAME, $username)
 			->fetch();
 
 
@@ -88,13 +89,16 @@ class UserManager implements Nette\Security\IAuthenticator
 	 * @return void
 	 * @throws DuplicateNameException
 	 */
-	public function add($username, $email, $password)
+	public function add($username, $name, $email, $password, $status)
 	{
 		try {
 			$this->database->table(self::TABLE_NAME)->insert([
-				self::COLUMN_NAME => $username,
+				self::COLUMN_USERNAME => $username,
 				self::COLUMN_PASSWORD_HASH => Passwords::hash($password),
 				self::COLUMN_EMAIL => $email,
+				self::COLUMN_NAME => $name,
+				self::COLUMN_STATUS => $status,
+				
 			]);
 		} catch (Nette\Database\UniqueConstraintViolationException $e) {
 			throw new DuplicateNameException;

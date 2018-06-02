@@ -15,6 +15,9 @@ use Nette\Application\UI\Form;
 class UserEditFactory {
     
 	use Nette\SmartObject;
+
+
+	const PASSWORD_MIN_LENGTH = 8;
     
 	/** @var FormFactory */
 	private $factory;
@@ -68,14 +71,29 @@ class UserEditFactory {
 
 		if( isset($user['status'])  ){
 			$form->addCheckbox('status', $this->translator->translate('admin.settings.user.statusForm'));
+			foreach ($this->roles as $role) {
+				if ($role->id > 1){
+					$form->addCheckbox('role_' . $role->id, $this->translator->translate('admin.settings.role.'.$role->role));
+				}
+			}
 		}
+
+		
+
+
 		
 		if($user){
 			$user['userId'] = $user['id'];
 			$form->setDefaults($user);
 		}
 		
-		$form->addPassword('password', $this->translator->translate('admin.settings.user.changePsw'));
+		$form->addPassword('password', $this->translator->translate('admin.settings.user.changePsw'))
+			->setOption('description', $this->translator->translate('admin.form.lenghtPassword', ['lenght'=>self::PASSWORD_MIN_LENGTH]))
+			->setRequired($this->translator->translate('admin.form.regueitPassword'))
+			->addRule($form::MIN_LENGTH, null, self::PASSWORD_MIN_LENGTH)
+			->addRule(Form::PATTERN, $this->translator->translate('admin.form.passwordLover'), '.*[a-z].*')
+			->addRule(Form::PATTERN, $this->translator->translate('admin.form.passowrdUper'), '.*[A-Z].*')
+			->addRule(Form::PATTERN, $this->translator->translate('admin.form.paswordNUmber'), '.*[0-9].*');
 
 		$form->addSubmit('send', $this->translator->translate('admin.settings.user.save'));
 

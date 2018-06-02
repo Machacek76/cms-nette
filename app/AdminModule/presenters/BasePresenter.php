@@ -37,12 +37,10 @@ use App\Components\Mailer;
 		if ($this->user->isLoggedIn()) {
 			$user['email']				= $this->user->getIdentity()->data['email']; 
 			$user['id']					= $this->user->getIdentity()->data['id']; 
-			$user['role']				= ''; 
+			$user['role']				= "";//$this->context->getService('userRoleModel')->getRoles($user['id']); 
 			$user['name']				= $this->user->getIdentity()->data['name']; 
 			$user['avatar']				= $this->context->getService('userModel')->getAvatar($user['email']);
 			$this->root['user']			= $user;
-			$this->glCache->saveCache('user', $user);
-			
 		}
 	}
 
@@ -60,8 +58,6 @@ use App\Components\Mailer;
 			$this->redirect('Sign:in');
 			return;
 		}
-
-	//	dump($this->resource);
 
 		if (!$this->user->isAllowed($this->resource)){
 			if (!$this->user->isLoggedIn()) {
@@ -98,7 +94,7 @@ use App\Components\Mailer;
 	 * @param [type] $id
 	 * @return void 
 	 */
-    public function checkAccess ($id = NULL){
+    public function checkAccess ($id = NULL, $allowed ){
         
         // if $id is NULL set id current login user ID
         if (!$id){
@@ -108,7 +104,7 @@ use App\Components\Mailer;
         }
 
         // if user isn't admin role and $id !== current login user ID redirect to admin homepage 
-        if(!$this->user->isInRole('admin') && (int)$this->id !== $this->user->id){
+        if(!$this->user->isAllowed($allowed) && (int)$this->id !== $this->user->id){
             $this->flashMessage($this->translator->translate('admin.settings.user.accessDenied'), 'danger');
             $this->redirect('Homepage:default');
         }

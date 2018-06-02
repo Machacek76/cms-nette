@@ -29,8 +29,22 @@ signIn:
 
 form:
     notValidEmail:      "Email nemá správný formát!"
-
-
+    enterPassword:      "Vložte heslo:"
+    repeatPassword:     "Opakujte heslo:"
+    enterEmail:         "Vložte email:"
+    enterUsername:      "Vložte přihlašovací jméno:"
+    enterName:          "Vložte jméno:"
+    lenghtPassword:     "Heslo musí být minimálně %lenght% znaků dlouhé a musí obsahovat melé, velké písmeno číslo číslo!"
+    regueitPassword:    "Heslo je povinné!"
+    notMatchPassword:   "Hesle se neschodují!"
+    save:               "Uložit"
+    takenUsername:      "Uživatelské jméno je již použito!"
+    paswordNumber:      "Heslo musí obsahovat číslo!"
+    passowrdUper:       "Heslo musí obsahovat velké písmeno!"
+    passwordLover:      "Heslo musí obsahovat malé písmeno!"
+    requietUsername:    "Přihlašovací jméno je povinné!"
+    reguietPassword:    "Vložte heslo!"
+    requietName:        "Vložte jméno"
 
 # settings
 settings:
@@ -105,7 +119,9 @@ settings:
         lowPass:        "Heslo je příliš krátké!"
         accessDenied:   "Přístup zamítnut"
         addNewUser:     "Přidat nového uživatele."
-
+        newUser:        "Nový uživatel:"
+    
+    
     privilege:
         label:          "Api přístup"
         labelCurrent:   "Jenom aktální uživatel"
