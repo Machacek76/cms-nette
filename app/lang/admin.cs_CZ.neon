@@ -25,10 +25,36 @@ signIn:
     maxCountFailLogin:  "Příliš mnoho neuspěšných přihlášení skuste to za hodinu!"
     blockAccount:       "Účet je zablokovaný!"
     permissionDenied:   "Přístup zamítnut!!!"
+    sendMail:           "Obnovovací mail odeslán na adresu: %email%"
+    sendMailSub:        "Obnovení hesla"
+    sendMailMessage:    "Pro obnovení vašeho přístupu do cms klikněte na <a gref='%link%'>odkaz</a>.<br>Pokud se Vám nezobrazil link zkopírjte odkaz do prohlížeče: %link%"
+    tokenNotFount:      "Link pro obnovení hesla není zprávný! Prosím zadejte znovu svuj email."
+    tokenTimeOut:       "Platnost linku vypršela, link platí pouze 1 hodninu! Prosím zadejte znovu svuj email."
+    passwordHasReset:   "Heslo bylo změněno můžete se přihlásit!"
 
 
-
-
+form:
+    send:               "Odeslat"
+    save:               "Uložit"
+    notValidEmail:      "Email nemá správný formát!"
+    enterPassword:      "Vložte heslo:"
+    repeatPassword:     "Opakujte heslo:"
+    enterEmail:         "Vložte email:"
+    enterUsername:      "Vložte přihlašovací jméno:"
+    enterName:          "Vložte jméno:"
+    lenghtPassword:     "Heslo musí být minimálně %lenght% znaků dlouhé a musí obsahovat malé, velké písmeno číslo číslo!"
+    regueitPassword:    "Heslo je povinné!"
+    notMatchPassword:   "Hesle se neschodují!"
+    takenUsername:      "Uživatelské jméno je již použito!"
+    paswordNumber:      "Heslo musí obsahovat číslo!"
+    passowrdUper:       "Heslo musí obsahovat velké písmeno!"
+    passwordLover:      "Heslo musí obsahovat malé písmeno!"
+    requietUsername:    "Přihlašovací jméno je povinné!"
+    reguietPassword:    "Vložte heslo!"
+    requietName:        "Vložte jméno"
+    forgotUser:         "Přihašovací jméno nebo heslo:"
+    requietForgotUser:  "Přihašovací jméno nebo heslo je povinné!"
+    notfoundUser:       "Uživatel %name% nenalezen!"
 
 # settings
 settings:
@@ -78,19 +104,39 @@ settings:
         titleSetResource:    "Nastavení oprávnění pro roli:"
 
     user:
-        labelUser:       "Uživatel"
-        labelUsers:      "Uživatelé"
-        labelAllUsers:   "Všichni uživatelé"
-        labelSettings:   "Nastavení uživatelů"
-
+        labelLink:      "Link"
+        labelUser:      "Uživatel"
+        labelUsers:     "Uživatelé"
+        labelAllUsers:  "Všichni uživatelé"
+        labelSettings:  "Nastavení uživatelů"
+        name:           "Jméno"
+        role:           "Role"
+        email:          "Email"
+        status01:       "Přístup do cms:"
+        status0:        "zakázán"
+        status1:        "povolen"
+        userName:       "User name"
+        edit:           "Změnit"
+        notFound:       "Uživatel %id% nenalezen"
+        userOverview:   "Přehled informací o oživateli:"
+        editUser:       "Upravit uživatele:"
+        statusForm:     "Přístup do cms:"
+        userIdForm:     "ID uživatele:"
+        userEmailForm:  "Email:"
+        userNameForm:   "Přihlašovací jméno:"
+        save:           "Uložit"
+        changePsw:      "Nové heslo:"
+        lowPass:        "Heslo je příliš krátké!"
+        accessDenied:   "Přístup zamítnut"
+        addNewUser:     "Přidat nového uživatele."
+        newUser:        "Nový uživatel:"
+    
+    
     privilege:
         label:          "Api přístup"
         labelCurrent:   "Jenom aktální uživatel"
         labelAll:       "Všechny"
         labelNone:      "Bez přístupu"
-
-
-
 
 
 

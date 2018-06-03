@@ -1,0 +1,43 @@
+{define form $formName}
+    <form n:name=$formName class=form-horizontal>
+        {*include ./../components/flash-msg.latte *}
+        <div class=error n:if="$form->ownErrors">
+            <div  n:foreach="$form->ownErrors as $error" class="alert alert-danger alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                {$error}
+            </div>
+        </div>
+
+        <div n:foreach="$form->controls as $name => $input"
+            n:if="!$input->getOption(rendered) && $input->getOption(type) !== hidden"
+            n:class="form-group, $input->required ? required, $input->error ? has-error">
+            <div class="col-sm-4 control-label">
+                {if $input->getOption(type) === checkbox}
+                    <label>{$input->caption}</label>
+                {else}
+                    {label $input}
+                {/if}
+            </div>
+            <div class="col-sm-8">
+                {if $input->getOption(type) in [text, select, textarea]}
+                    {input $input class => form-control}
+                {elseif $input->getOption(type) === button}
+                    {input $input class => "btn btn-primary"}
+                {elseif $input->getOption(type) === checkbox}
+                    
+                    <div class="material-switch ">
+                        <input type=checkbox name="{$input->name}" id="frm-{$formName}-{$input->name}" {if $input->value == 1}checked{/if} />
+                        <label for="frm-{$formName}-{$input->name}" class="label-success" ></label>
+                    </div>
+                    
+                {elseif $input->getOption(type) === radio}
+                    <div class="radio">{input $input}</div>
+                {else}
+                    {input $input}
+                {/if}
+
+                <span class=help-block n:ifcontent>{$input->error ?: $input->getOption(description)}</span>
+            </div>
+        </div>
+    </form>
+{/define}

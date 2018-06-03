@@ -2,14 +2,17 @@
 
 services:
 	- App\Forms\FormFactory
-	- App\Forms\SignInFormFactory
-	- App\Forms\SignUpFormFactory
+
 	- App\Forms\AclAddResourceFactory
 	- App\Forms\AclAddRoleFactory
 	- App\Forms\AclEditAllowFactory
 
-#	- App\Forms\EditUserFormFactory
-#	- App\Forms\ForgotFormFactory
-#	- App\Forms\ResetPasswordFormFactory
+	- App\Forms\SignInFormFactory
+	- App\Forms\SignUpFormFactory
+	
+	- App\Forms\UserEditFactory
+	- App\Forms\SignForgotFormFactory
+	- App\Forms\SignResetFormFactory
+
 
 

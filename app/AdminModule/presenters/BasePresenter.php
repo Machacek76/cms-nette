@@ -11,13 +11,19 @@ use App\Components\Mailer;
  * Base presenter for all application presenters.
  */
  class BasePresenter extends \App\Presenters\BasePresenter{
-        
-    
+		
+	 
+	/** @var url $id  */
+	public $id;
+
     /** @var $root */
 	public $root;
 	
 	/** @var $resource */
 	public $resource;
+
+	/** @var seesion */
+	public $token;
 
 
 
@@ -34,13 +40,14 @@ use App\Components\Mailer;
 		if ($this->user->isLoggedIn()) {
 			$user['email']				= $this->user->getIdentity()->data['email']; 
 			$user['id']					= $this->user->getIdentity()->data['id']; 
-			$user['role']				= ''; 
+			$user['role']				= "";//$this->context->getService('userRoleModel')->getRoles($user['id']); 
 			$user['name']				= $this->user->getIdentity()->data['name']; 
 			$user['avatar']				= $this->context->getService('userModel')->getAvatar($user['email']);
 			$this->root['user']			= $user;
-			$this->glCache->saveCache('user', $user);
-			
 		}
+
+		$this->token = $this->getSession('token');
+		$this->token->setExpiration(240, 'values');
 	}
 
 	/**
@@ -57,8 +64,6 @@ use App\Components\Mailer;
 			$this->redirect('Sign:in');
 			return;
 		}
-
-	//	dump($this->resource);
 
 		if (!$this->user->isAllowed($this->resource)){
 			if (!$this->user->isLoggedIn()) {
@@ -89,7 +94,29 @@ use App\Components\Mailer;
 		return "\\" . \str_replace(':', "\\", $resource);
 	}
 
-	
+	/**
+	 * Undocumented function
+	 *
+	 * @param [type] $id
+	 * @return void 
+	 */
+    public function checkAccess ($id = NULL, $allowed ){
+        
+        // if $id is NULL set id current login user ID
+        if (!$id){
+            $this->id = $this->user->id;
+        }else{
+            $this->id = $id;
+        }
+
+        // if user isn't admin role and $id !== current login user ID redirect to admin homepage 
+        if(!$this->user->isAllowed($allowed) && (int)$this->id !== $this->user->id){
+            $this->flashMessage($this->translator->translate('admin.settings.user.accessDenied'), 'danger');
+            $this->redirect('Homepage:default');
+        }
+    }
+
+
     public function afterRender() {
         parent::afterRender();
         $this->template->root = $this->root;

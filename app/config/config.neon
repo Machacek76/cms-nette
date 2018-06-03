@@ -45,6 +45,7 @@ services:
 	glCache: \GlueWork\glCache\glCacheExtension
 
 	router: App\RouterFactory::createRouter
+	- App\Components\Mailer\Mailer
 
 	- App\Security\AuthorizatorFactory
 	Authorizator:

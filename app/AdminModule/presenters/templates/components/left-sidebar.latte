@@ -19,7 +19,7 @@
 
 			<li class='header'>{_ admin.settings.label}</li>
 			
-			<li class="treeview {include ../components/class-active.latte,  'names' => ['Admin:user', 'Admin:Acl:all', 'Admin:Acl:role', 'Admin:Acl:allow', 'Admin:Acl:resource']} ">
+			<li class="treeview {include ../components/class-active.latte,  'names' => ['Admin:User:all', 'Admin:User:get', 'Admin:Acl:all', 'Admin:Acl:role', 'Admin:Acl:allow', 'Admin:Acl:resource']} ">
 				<a href="#">
 					<i class='fa fa-cogs'></i>
 					<span>{_ admin.settings.label }</span>
@@ -33,6 +33,13 @@
 							<a n:href="User:all">
 								<i class="fa fa-users"></i>
 								<span>{_ admin.settings.user.labelUsers}</span>
+							</a>
+						</li>
+					{elseif $user->isAllowed('Admin:User:get')}
+						<li {if $presenter->getAction() == 'get' } class='active'  {/if}  >
+							<a n:href="User:get, 'id'=> $user->id ">
+								<i class="fa fa-user"></i>
+								<span>{_ admin.settings.user.labelUser}</span>
 							</a>
 						</li>
 					{/if}

@@ -10,30 +10,44 @@
 					{$error}
 				</div>
 			</div>
-
-			<div n:foreach="$form->controls as $name => $input"
-				n:if="!$input->getOption(rendered) && $input->getOption(type) !== hidden"
-				n:class="form-group, $input->required ? required, $input->error ? has-error">
-
-				{if $input->getOption(type) in [text, select, textarea]}
-					<div style="max-width: 200px">
-						{input $input class => form-control}
+			<div class="col-md-4">
+				{foreach $form->controls as $name => $input}
+					{if $iterator->getCounter() % 5 == 1 && $iterator->getCounter() != 1}
+						</div>
+						<div class="col-md-4">
+					{/if}
+					
+					<div class="row mt-5 mb-10">
+						<div class="col-sm-6 control-label">
+							{if $input->getOption(type) === checkbox}
+								<label>{$input->caption}</label>
+							{else}
+								{label $input}
+							{/if}
+						</div>
+						<div class="col-md-6">
+							{if $input->getOption(type) in [text, select, textarea]}
+								<div style="max-width: 200px">
+									{input $input class => form-control}
+								</div>
+							{elseif $input->getOption(type) === button}
+								{input $input class => "btn btn-primary"}
+							{elseif $input->getOption(type) === checkbox}
+								<div class="material-switch ">
+									<input type=checkbox name="{$input->name}" id="frm-{$formName}-{$input->name}" {if $input->value == 1}checked{/if} >
+									<label for="frm-{$formName}-{$input->name}" class="label-success" ></label>
+								</div>
+							{elseif $input->getOption(type) === radio}
+								<div class="radio">{input $input}</div>
+							{else}
+								{input $input}
+							{/if}
+						</div>
 					</div>
-				{elseif $input->getOption(type) === button}
-					{input $input class => "btn btn-primary"}
-				{elseif $input->getOption(type) === checkbox}
-					<div class="material-switch ">
-						{input $input}
-					</div>
-				{elseif $input->getOption(type) === radio}
-					<div class="radio">{input $input}</div>
-				{else}
-					{input $input}
-				{/if}
-
-				<span class=help-block n:ifcontent>{$input->error ?: $input->getOption(description)}</span>
+				{/foreach}
 
 			</div>
+			
 		</form>
 	</div>
 {/define}

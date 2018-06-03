@@ -1,5 +1,8 @@
 #/bin/bash
 
+rm -r ./_temp/cache/*
+rm -r ./../temp/_glCache/*
+
 echo "##############################################\n"
 
 echo "> TEST START\n"
@@ -17,6 +20,10 @@ php AdminAclPresenterTest.php
 echo ">> TEST AdminSignPresenterTest.php"
 
 php  AdminSignPresenterTest.php
+
+echo ">> TEST AdminUserPresenterTest.php"
+
+php  AdminUserPresenterTest.php
 
 
 echo "\n##############################################\n"
