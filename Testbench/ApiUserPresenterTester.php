@@ -65,14 +65,14 @@ class ApiUserPresenterTester extends \Tester\TestCase{
 		/** test current user */
 		$json = $this->checkJson('Api:User:get', ['id'=>$this->testUsers['admin']['data']['id'] ])->getPayload();
 		Assert::same($json->data['name'], 'Admin');
-		Assert::same($json->data['email'], 'admin@example.com');
+		Assert::true(isset( $json->data['email']) );
 		Assert::same($json->data['username'], 'Admin');		
 		unset($json);
 
 		/** test another user */
 		$json = $this->checkJson('Api:User:get', ['id'=>$this->testUsers['user']['data']['id'] ])->getPayload();
 		Assert::same($json->data['name'], 'Test User');
-		Assert::same($json->data['email'], 'testuser@example.com');
+		Assert::true(isset($json->data['email']));
 		Assert::same($json->data['username'], 'TestUser');	
 		unset($json);
 

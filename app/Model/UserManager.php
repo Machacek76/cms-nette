@@ -106,6 +106,32 @@ class UserManager implements Nette\Security\IAuthenticator
 	}
 
 
+	public function resetPassword ($password, $userId){
+		$this->database->table(self::TABLE_NAME)
+			->where(self::COLUMN_ID . ' = ?',  $userId)
+			->update([self::COLUMN_PASSWORD_HASH => Passwords::hash($password)]);
+	}
+
+
+
+	/**
+	 * get User
+	 *
+	 * @param string $find username or email
+	 * @return active row
+	 * @throws UserNotFoundException
+	 */
+	public function get ( string $find ){
+		
+		$res =  $this->database->table(self::TABLE_NAME)->select('username, name, email, id')
+				->where( self::COLUMN_EMAIL . ' = ? OR ' . self::COLUMN_USERNAME . ' = ?', [$find, $find] )->fetch();
+		
+		if($res){
+			return $res;
+		}else{
+			throw new UserNotFoundException;
+		}
+	}
 
 
 	/**
@@ -129,5 +155,9 @@ class UserManager implements Nette\Security\IAuthenticator
 
 
 class DuplicateNameException extends \Exception
+{
+}
+
+class UserNotFoundException extends \Exception
 {
 }

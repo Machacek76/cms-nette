@@ -164,7 +164,8 @@ class UserPresenter extends BasePresenter  {
                 $newUser['email'] = $values->email;
 
                 if( strlen($values->password) > 0 ){
-                    if( strlen($values->password > 8) ) {
+                    
+                    if( strlen($values->password) > 8 ) {
                         $newUser['password'] = Passwords::hash($values->password);
                     }else{
                         $this->flashMessage ($this->translator->translate( 'admin.settings.user.lowPass'), 'danger');

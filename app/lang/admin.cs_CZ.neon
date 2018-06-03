@@ -25,19 +25,26 @@ signIn:
     maxCountFailLogin:  "Příliš mnoho neuspěšných přihlášení skuste to za hodinu!"
     blockAccount:       "Účet je zablokovaný!"
     permissionDenied:   "Přístup zamítnut!!!"
+    sendMail:           "Obnovovací mail odeslán na adresu: %email%"
+    sendMailSub:        "Obnovení hesla"
+    sendMailMessage:    "Pro obnovení vašeho přístupu do cms klikněte na <a gref='%link%'>odkaz</a>.<br>Pokud se Vám nezobrazil link zkopírjte odkaz do prohlížeče: %link%"
+    tokenNotFount:      "Link pro obnovení hesla není zprávný! Prosím zadejte znovu svuj email."
+    tokenTimeOut:       "Platnost linku vypršela, link platí pouze 1 hodninu! Prosím zadejte znovu svuj email."
+    passwordHasReset:   "Heslo bylo změněno můžete se přihlásit!"
 
 
 form:
+    send:               "Odeslat"
+    save:               "Uložit"
     notValidEmail:      "Email nemá správný formát!"
     enterPassword:      "Vložte heslo:"
     repeatPassword:     "Opakujte heslo:"
     enterEmail:         "Vložte email:"
     enterUsername:      "Vložte přihlašovací jméno:"
     enterName:          "Vložte jméno:"
-    lenghtPassword:     "Heslo musí být minimálně %lenght% znaků dlouhé a musí obsahovat melé, velké písmeno číslo číslo!"
+    lenghtPassword:     "Heslo musí být minimálně %lenght% znaků dlouhé a musí obsahovat malé, velké písmeno číslo číslo!"
     regueitPassword:    "Heslo je povinné!"
     notMatchPassword:   "Hesle se neschodují!"
-    save:               "Uložit"
     takenUsername:      "Uživatelské jméno je již použito!"
     paswordNumber:      "Heslo musí obsahovat číslo!"
     passowrdUper:       "Heslo musí obsahovat velké písmeno!"
@@ -45,6 +52,9 @@ form:
     requietUsername:    "Přihlašovací jméno je povinné!"
     reguietPassword:    "Vložte heslo!"
     requietName:        "Vložte jméno"
+    forgotUser:         "Přihašovací jméno nebo heslo:"
+    requietForgotUser:  "Přihašovací jméno nebo heslo je povinné!"
+    notfoundUser:       "Uživatel %name% nenalezen!"
 
 # settings
 settings:

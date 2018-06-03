@@ -11,6 +11,8 @@ services:
 	- App\Forms\SignUpFormFactory
 	
 	- App\Forms\UserEditFactory
+	- App\Forms\SignForgotFormFactory
+	- App\Forms\SignResetFormFactory
 
 
 

@@ -22,6 +22,9 @@ use App\Components\Mailer;
 	/** @var $resource */
 	public $resource;
 
+	/** @var seesion */
+	public $token;
+
 
 
 	public function startup() {
@@ -42,6 +45,9 @@ use App\Components\Mailer;
 			$user['avatar']				= $this->context->getService('userModel')->getAvatar($user['email']);
 			$this->root['user']			= $user;
 		}
+
+		$this->token = $this->getSession('token');
+		$this->token->setExpiration(240, 'values');
 	}
 
 	/**
