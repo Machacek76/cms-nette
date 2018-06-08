@@ -17,6 +17,7 @@ use Nette;
      */
     public $ngData  = [];
 
+	public $sendJson = true;
 
     
 	public function startup() {
@@ -88,7 +89,9 @@ use Nette;
      * @return void
      */
     public function afterRender(){
-		$this->sendPayload();
+		if($this->sendJson === TRUE){
+			$this->sendPayload();
+		}
 	}
 	
 	

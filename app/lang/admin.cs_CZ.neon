@@ -139,5 +139,17 @@ settings:
         labelNone:      "Bez přístupu"
 
 
-
-
+imageGallery:
+    head:               "Galerie"
+    upload:             "Stáhnout"
+    all:                "Vše"
+    addFile:            "Přidat soubor"
+    addFolder:          "Přidat složku"
+    dragFileHere:       "Přetánout soubor sem"
+    download:           "Stáhnou"
+    storno:             "Storno"
+    author:             "Autor:"
+    name:               "Název:"
+    description:        "Popis:"
+    state:              "Staženo:"
+    retry:              "Opakovat"

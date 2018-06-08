@@ -1,0 +1,47 @@
+{block content}
+<div flow-init>
+	<span class="btn btn-default" flow-btn><i class="fa fa-file"></i> {_ admin.imageGallery.addFile}</span>
+	<span class="btn btn-default" flow-btn flow-directory ng-show="$flow.supportDirectory"><i class="fa fa-folder-open"></i> {_ admin.imageGallery.addFolder}</span>
+	<div class="mt-10"></div>
+	<div class="box box-solid bg-aqua" style='padding: 45px' flow-drop flow-drag-enter="class='bg-green '" flow-drag-leave="class='box bg-aqua box-solid mb20 mt20'"  ng-class="class" >
+		{_ admin.imageGallery.dragFileHere}
+	</div>
+	<p>
+		<a class="btn btn-success" ng-click="$flow.resume()">{_ admin.imageGallery.download}</a>
+		<a class="btn btn-info" ng-click="$flow.cancel()">{_ admin.imageGallery.storno}</a>
+	</p>
+	<table class="table table-bordered" flow-transfers>
+		<tbody>
+			<tr ng-repeat="file in transfers">
+				<td style="width: 270px">
+					<img flow-img="$flow.files[$index]" src="/cms/img/bin/wait-for-preview.png" style="max-height: 190px"  >
+				</td>
+				<td>
+					<b>{_ admin.imageGallery.author}</b> <input class="form-control" type="text" ng-model="file.chunkAut" >
+					<b>{_ admin.imageGallery.name}</b> <input class="form-control" type="text" ng-model="file.chunkNam" >
+					{*<b>{_ admin.imageGallery.alt}</b> <input class="form-control" type="text" ng-model="file.chunkAlt"  > *}
+				</td>
+				<td>
+					<b>{_ admin.imageGallery.description}</b><br />
+					<textarea class="form-control" type="text" ng-model="file.chunkDes" style="height: 150px;" > </textarea>
+				</td>
+				<td>
+					<div ng-class="{'callout-succes' : (file.isComplete()) }" class="callout">
+						<h2><span class="label label-primary ">{{ $index + 1}} #</span></h2>
+						<h3>{_ admin.imageGallery.state}</h3>
+						<h2><span ng-class="{'label-success' : (file.isComplete()) }" class="label label-default">{{ file.progress() | myFloor }} %</span></h32>
+					</div>
+				</td>
+				<td>
+					<div class="btn-group">
+						<a class="btn btn-danger" ng-click="file.cancel()">{_ admin.imageGallery.storno}</a>
+						<a class="btn btn-info" ng-click="file.retry()" ng-show="file.error">{_ admin.imageGallery.retry}</a>
+					</div>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<div class="clearfix"> </div>
+</div>
+
+{/block}
