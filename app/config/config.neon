@@ -16,9 +16,8 @@ parameters:
 	paginator:
 		itemPerPage: 60
 
-	imageTemp:		'img'
-	imgCuts:		'/img-cuts/'
-	mediaDir:		'/media'
+	imgCuts:		img-cuts
+	cmsContent:		cms-content
 
 	glCache:
 		time: '5 minutes'
@@ -48,6 +47,9 @@ services:
 	- App\Components\Mailer\Mailer
 
 	- App\Security\AuthorizatorFactory
+	
+	flowUploader: App\Components\Flow\FlowUploader( %wwwDir%/%cmsContent%/upload-images)
+
 	Authorizator:
 		class: Nette\Security\Permission
 		factory: @App\Security\AuthorizatorFactory::create
@@ -61,6 +63,9 @@ services:
 	aclResourceModel: App\Model\AclResourceModel
 	aclRoleModel: App\Model\AclRoleModel
 	aclAllowModel: App\Model\AclAllowModel
+
+
+	mediaModel: App\Model\MediaModel
 	
 	userManager: App\Model\UserManager
 	userModel:	App\Model\UserModel

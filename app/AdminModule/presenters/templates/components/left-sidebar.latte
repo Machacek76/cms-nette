@@ -15,10 +15,26 @@
             </div>
         </div>
         <ul class="sidebar-menu tree" data-widget="tree">
-            {*--START sidebar menus --*}
-
-			<li class='header'>{_ admin.settings.label}</li>
+			{*--START sidebar menus --*}
 			
+			{*-- START gallery menu --*}
+            <li class="treeview {include ../components/class-active.latte,  'names' => ['Admin:ImageGallery:all', 'Admin:ImageGallery:upload']}">
+				<a href="#">
+					<i class="fa fa-image"></i>
+					<span>{_ admin.imageGallery.head}</span>
+					<span class="pull-right-container">
+						<i class="fa fa-angle-left pull-right"></i>
+					</span>
+				</a>
+				<ul class="treeview-menu">
+					<li><a n:href="ImageGallery:upload"><i class="fa fa-upload"></i>{_ admin.imageGallery.upload}</a></li>
+					<li><a n:href="ImageGallery:all"><i class="fa fa-image"></i>{_ admin.imageGallery.all}</a></li>
+				</ul>
+            </li>
+			{*-- END gallery menu --*}
+
+			{*-- START settings menu --*}
+			<li class='header'>{_ admin.settings.label}</li>
 			<li class="treeview {include ../components/class-active.latte,  'names' => ['Admin:User:all', 'Admin:User:get', 'Admin:Acl:all', 'Admin:Acl:role', 'Admin:Acl:allow', 'Admin:Acl:resource']} ">
 				<a href="#">
 					<i class='fa fa-cogs'></i>
@@ -54,7 +70,7 @@
 					{/if}
 				</ul>
 			</li>
-
+			{*--END settings menu--*}
 
             {*--TEMPLATES menu item--*}
 			<li class="header">--</li>
@@ -91,7 +107,8 @@
 					</li>
 					<li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li>
 				</ul>
-            </li>
+			</li>
+			{*--END TEMPLATES menu item--*}
             {*--END sidebar menus--*}
         </ul>
     </section>

@@ -45,6 +45,14 @@ www/img-cuts/*
 !www/img-cuts/.keep
 
 
+www/cms-content/upload-images
+
+!www/cms-content/upload-images/.keep
+
+www/cms-content/cut-images
+
+!www/cms-content/cut-images/.keep
+
 
 www/media/files/*
 
