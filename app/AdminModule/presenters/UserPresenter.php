@@ -37,9 +37,10 @@ class UserPresenter extends BasePresenter  {
 	public function __construct(Forms\UserEditFactory $userEditFactory, Forms\SignUpFormFactory $signUpFactory){
         $this->userEditFactory = $userEditFactory;	
         $this->signUpFactory = $signUpFactory;
-	}
+    }
+    
 
-
+  
     /**
      * Undocumented function
      *
@@ -73,6 +74,17 @@ class UserPresenter extends BasePresenter  {
      * @return void
      */
     public function renderEdit($id = NULL){
+
+        // if isn't set $id redirect to all user
+        if ( !$id ) {        // if isn't set $id redirect to all user
+            if ( !$id ) {
+                $this->redirect( 'User:all' );
+            }
+    
+            $this->redirect( 'User:all' );
+        }
+
+
         $this->checkAccess($id, 'Admin:User:all');
 
         $res = $this->context->getService('userModel')->getApiUser($id);
@@ -104,6 +116,12 @@ class UserPresenter extends BasePresenter  {
      * @return void
      */
     public function renderGet($id = NULL){
+
+        // if isn't set $id redirect to all user
+        if ( !$id ) {
+            $this->redirect( 'User:all' );
+        }
+        
         $this->checkAccess($id, 'Admin:User:all');
 
         $res = $this->context->getService('userModel')->getApiUser($id);
