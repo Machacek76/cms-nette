@@ -6,6 +6,19 @@ app/config/config.local.neon
 
 grunt/node_modules/*
 
+
+
+www/cms-content/*
+
+#www/cms-content/upload-images/2018
+
+!www/cms-content/upload-images/.keep
+!www/cms-content/cut-images/.keep
+
+
+
+
+
 log/*
 
 !log/.keep
@@ -43,15 +56,6 @@ www/media/files/*
 www/img-cuts/*
 
 !www/img-cuts/.keep
-
-
-www/cms-content/upload-images
-
-!www/cms-content/upload-images/.keep
-
-www/cms-content/cut-images
-
-!www/cms-content/cut-images/.keep
 
 
 www/media/files/*
